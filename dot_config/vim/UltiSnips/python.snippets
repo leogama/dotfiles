@@ -1,0 +1,143 @@
+# Template Snippet #
+####################
+
+global !p
+
+class Doc(object):
+    def __init__(self, raw):
+        self.raw = raw
+
+    def __str__(self):
+        return self.name
+
+    def __unicode__(self):
+        return self.name
+
+class DocArg(Doc):
+    def __init__(self, arg):
+        super().__init__(arg.replace('...', ''))
+        self.name = self.raw.strip('[').strip(']')
+        self.lower = self.name.lower().replace('_', '-')
+
+    def is_optional(self):
+        return self.name != self.raw
+
+class DocOpt(Doc):
+    def __init__(self, opt):
+        super().__init__(opt)
+        self.name = self.raw.strip('-')
+
+    def has_default(self):
+        pass
+
+
+def get_doc_args(arg_list):
+    return [DocArg(arg) for arg in arg_list.split() if arg]
+
+def get_doc_opts(opt_list):
+    pass
+
+endglobal
+
+
+snippet template "python script template" b
+"""${1:`!p snip.rv = fn`} version ${2:0.1.0} (${3:`date +%Y-%m-%d`})
+${4:Single line description of the program's main functionality.
+
+Here you can write a more exaustive description...}
+
+Usage: $1 ${5:[options]} ${6:ARG [OPTIONAL_ARG]}
+
+Input:
+  `!p
+args = get_doc_args(t[5])
+snip.rv = '\n  '.join(str(arg) for arg in args)`
+
+Output:
+  ${7:Whatever your program produces.}
+
+Options:
+  -h --help         show this help message
+  --version         show program version
+${8:  -o --option       this option description
+}
+Author:
+  Leonardo Gama - leonardo.reis.gama at gmail.com
+"""
+
+if __name__ == '__main__':
+	# Get arguments.
+	from docopt import docopt
+	arg = docopt(__doc__, version="$2")
+	clean = lambda arg: arg.lower().strip('-').replace('-', '_')
+	arg = {clean(k): v for k, v in arg.items() if v is not None}${9:
+
+	# Check arguments
+	from os import path
+	import sys
+	try:
+		assert path.exists(arg['infile']), ("No such file: " + arg['infile'])
+	except AssertionError as why:
+		sys.exit("[Error] " + str(why))}
+
+${10:import module
+}
+
+def main(`!p
+snip.rv = ', '.join(arg.lower+'=None' if arg.is_optional() else arg.lower for arg in args)`):
+	$0
+
+
+### WRAPPER SCRIPT ###
+
+if __name__ == '__main__':${11:
+	print("Hello, user!")}
+	main(**arg)
+endsnippet
+
+
+# Basic Snippets #
+##################
+
+snippet #! "python hashbang" b
+${1:#!/usr/bin/env python${2:3}
+}${3:# vim: fileencoding=${4:utf-8}}
+$0
+endsnippet
+
+snippet " "triple quoted string (double quotes)" b
+"""
+${1:__doc__}
+""
+endsnippet
+
+snippet fori "counter for loop" b
+for i in range($1):
+	$0
+endsnippet
+
+snippet fore "enumerate for loop" b
+for ${1:i}, ${2:x} in enumerate(${3:iterable}):
+	$0
+endsnippet
+
+snippet main "main test" b
+if __name__ == '__main__':
+	${VISUAL}
+endsnippet
+
+
+#  Documentation  #
+###################
+
+snippet pyfunc "function reference" w
+:py:func:\`${1:~$2}\`$0
+endsnippet
+
+snippet pyclass "class reference" w
+:py:class:\`${1:~$2}\`$0
+endsnippet
+
+snippet pymod "module reference" w
+:py:mod:\`$1\`$0
+endsnippet

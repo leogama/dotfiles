@@ -1,0 +1,99 @@
+snippet ## "Session header" b
+
+### $1 ###
+$0
+endsnippet
+
+snippet ( "parens indentation" i
+(
+	$0
+
+endsnippet
+
+snippet [ "bracket indentation" i
+[
+	$0
+
+snippet { "curly bracket indentation" i
+{
+	$0
+
+endsnippet
+
+snippet date "DD-MM-YYYY" w
+`!v strftime("%d-%m-%Y")`
+endsnippet
+
+snippet modeline "Vi modeline" w
+vi:set ${1:ft}=$0 :
+endsnippet
+
+snippet mpl "Mozilla Public License notice and file info" b
+ Copyright  ${1:`!v strftime("%Y")`}  ${2:Owner}
+
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, you can obtain one at https://mozilla.org/MPL/2.0/
+
+ Project:  ${3:`basename $(git config --get remote.origin.url)`}
+ Version:  $4
+ Created:  ${5:`!v strftime("%d-%m-%Y")`}
+ Updated:  09-08-2022
+ Authors:  ${6:Leonardo Gama <${7:www.leogama.me}>}
+endsnippet
+
+#post_expand "vim.command('''%d,%d call NERDComment('n', 'Sexy')''' % (snip.snippet_start[0], snip.snippet_end[0])); c = vim.current.window.cursor; snip.cursor.set(c[0]-1, c[1]-1)"
+
+snippet mit "MIT license notice and file info" b
+ MIT License
+
+ Copyright  ${1:`!v strftime("%Y")`}  ${2:Owner}
+
+ Permission is hereby granted, free of charge, to any person obtaining a
+ copy of this software and associated documentation files (the "Software"),
+ to deal in the Software without restriction, including without limitation
+ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ and/or sell copies of the Software, and to permit persons to whom the
+ Software is furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ DEALINGS IN THE SOFTWARE.
+
+ Project:  ${3:`basename $(git config --get remote.origin.url)`}
+ Version:  $4
+ Created:  ${5:`!v strftime("%d-%m-%Y")`}
+ Updated:  $5
+ Authors:  ${6:Leonardo Gama <${7:www.leogama.me}>}
+endsnippet
+
+snippet unlicense "The Unlicense (public domain)" b
+ This is free and unencumbered software released into the public domain.
+
+ Anyone is free to copy, modify, publish, use, compile, sell, or distribute
+ this software, either in source code form or as a compiled binary, for any
+ purpose, commercial or non-commercial, and by any means.
+
+ In jurisdictions that recognize copyright laws, the author or authors of
+ this software dedicate any and all copyright interest in the software to
+ the public domain. We make this dedication for the benefit of the public
+ at large and to the detriment of our heirs and successors. We intend this
+ dedication to be an overt act of relinquishment in perpetuity of all
+ present and future rights to this software under copyright law.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+ THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ For more information, please refer to <https://unlicense.org>
+endsnippet

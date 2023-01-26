@@ -1,0 +1,61 @@
+extends javascript
+extends css
+
+global !p
+from vimsnippets import complete
+endglobal
+
+snippet template "Userscript header template" b
+// ==UserScript==
+// @name ${1:Script Name}
+// @namespace github.com/leogama
+// @author leogama
+// @description ${2:Long description}
+// @icon ${3:URL}
+//
+// @match ${4:*}://${5:*}/${6:*}
+// 
+// ${7:@require http://code.jquery.com/jquery-3.3.1.min.js
+// }${8:@noframes
+// }==/UserScript==
+
+$0
+
+// vi: set ft=userscript syntax=javascript :
+endsnippet
+
+snippet @ "Header directives" w
+@$1`!p snip.rv = complete(t[1], [
+    'exclude-match',
+    'grant',
+    'match',
+    'require',
+    'resource',
+    'run-at',
+    'version'
+])`
+endsnippet
+
+snippet @grant "@grant directive" w
+@grant GM_$1`!p snip.rv = complete(t[1], [
+    'addStyle',
+    'deleteValue',
+    'download',
+    'getResourceText',
+    'getResourceURL',
+    'getValue',
+    'info',
+    'listValues',
+    'notification',
+    'openInTab',
+    'registerMenuCommand',
+    'setClipboard',
+    'setValue',
+    'unregisterMenuCommand',
+    'xmlhttpRequest'
+])`
+endsnippet
+
+snippet @run-at "value of @run-at directive" w
+@run-at document-$1`!p snip.rv = complete(t[1], ['start', 'idle'])`
+endsnippet

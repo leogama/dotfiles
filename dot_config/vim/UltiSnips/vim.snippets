@@ -1,0 +1,25 @@
+snippet au "autocommand definition" b
+autocmd ${1:EventName}  ${2:*}   :${3:call ${4:FuncName}()}
+endsnippet
+
+snippet aug "autocommand group definition" b
+augroup ${1:GroupName}
+	autocmd!
+	${2:${VISUAL}}
+augroup END
+endsnippet
+
+snippet com "command definition" b
+command ${1:cmdName} ${2:keystrokes}
+endsnippet
+
+snippet fun "function definition --So much fun!" b
+fun ${1:FunctionName}($2)
+	${3:${VISUAL}}
+endfun$0
+endsnippet
+
+snippet "([intv]*)map" "mapping definition" br
+`!p if match.group(1): snip.rv = match.group(1)
+`${1:nore}map ${2:<buffer>}${3:<silent>}  ${4:<Leader>}${5:Keys}  ${6::${7:cmd}<CR>}
+endsnippet

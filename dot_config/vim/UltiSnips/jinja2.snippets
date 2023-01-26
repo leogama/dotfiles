@@ -1,0 +1,9 @@
+extends html
+
+snippet super "Jinja insert parent block" w
+{{ super() }}
+endsnippet
+
+snippet url "Flask url_for" w
+{{ url_for('${1:static}'${2:, filename='${3:file.ext}'}) }}
+endsnippet

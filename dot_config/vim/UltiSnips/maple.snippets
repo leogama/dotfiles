@@ -1,0 +1,30 @@
+snippet #! "shebang" b
+#!/usr/local/bin/maple -qs
+endsnippet
+
+snippet proc "function definition" w
+proc(${1:arg})
+	${2:local ${3:var};
+	}${0:${VISUAL}}
+end proc;
+endsnippet
+
+snippet ret "return statement" b
+return ${0:${VISUAL}};
+endsnippet
+
+snippet if "if statement" b
+if ${1:condition} then
+	${2:statement}
+end if;$0
+endsnippet
+
+snippet elif "elif statement" b
+elif ${1:condition} then
+	${2:statement}
+endsnippet
+
+snippet else "else statement" b
+else
+	${1:statement}
+endsnippet

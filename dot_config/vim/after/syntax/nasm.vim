@@ -1,0 +1,6 @@
+syn match  nasmBinNumber  "\<\([01]\|[01][01_]*[01]\)[by]\>"
+syn match  nasmBinNumber  "\<0[by]\([01]\|[01][01_]*[01]\)\>"
+syn match  nasmOctNumber  "\<\(\o\|\o[0-7_]*\o\)[oq]\>"
+syn match  nasmOctNumber  "\<0[oq]\(\o\|\o[0-7_]*\o\)\>"
+syn match  nasmDecNumber  "\<\(\d\|\d[0-9_]*\d\)d\?\>"
+syn match  nasmDecNumber  "\<0d\(\d\|\d[0-9_]*\d\)\>"

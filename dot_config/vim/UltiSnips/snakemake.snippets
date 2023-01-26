@@ -1,0 +1,64 @@
+extends python
+extends r
+
+global !p
+from vimsnippets import complete
+endglobal
+
+snippet rule "Snakemake rule" b
+rule ${1:name}:
+  input: ${2:rules.${3:other}.output}
+  output: '${4:path/to/file.ext}'
+  log: '${5:log/${6:$1}.log}'
+  message: '${7:rule description}'
+  $8`!p snip.rv = complete(t[8], ['run', 'shell'])`:
+    $0
+endsnippet
+
+snippet all "all-like rule (input only)" b
+rule ${1:all}:
+  input: $0${2:rules.${3:_$1_}.output}
+endsnippet
+
+snippet input "input function definition" b
+def ${1:input_fun}(wildcards):
+  $0
+  return expand('{wc1}.{wc2}.ext', wc1=wildcards.wc1, wc2=foo)
+endsnippet
+
+snippet exp "expand helper function" w
+expand(${1:${VISUAL:'\{wildcard\}.ext'}}, `!p
+snip.rv = ', '.join(x + '=' for x in re.findall('(?<!{){([^}]+)}(?!})', t[1]))
+`$0)
+endsnippet
+
+snippet R "R code container" b
+R('''
+  $0
+''')
+endsnippet
+
+snippet template "Template" b
+#!/usr/bin/snakemake --snakefile
+
+#-- ${1:Pipeline title} `!p snip.rv = '-' * (67 - len(t[1]))`
+#
+# Author:
+#   Leonardo Gama - leonardo.reis.gama at gmail.com
+#
+#-----------------------------------------------------------------------
+
+from os import path
+from snakemake.utils import R
+from types import SimpleNamespace
+
+
+### Configuration ###
+
+configfile: '${2:$3config.json}'
+config = SimpleNamespace(**config)
+
+$0
+
+# vim: set ts=2 sts=2 sw=2:
+endsnippet

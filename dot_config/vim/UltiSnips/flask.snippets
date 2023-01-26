@@ -1,0 +1,7 @@
+snippet route "Flask view" b
+@app.route('/$1'${2:, methods=[${3:'GET', }'POST']})
+endsnippet
+
+snippet json "Response in JSON format" w
+Response($1, mimetype='application/json')
+endsnippet

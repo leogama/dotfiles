@@ -1,0 +1,105 @@
+global !p
+from vimsnippets import complete
+endglobal
+
+snippet %! "tex program directive" b
+%! TEX program = ${1:pdfla}tex
+endsnippet
+
+snippet modeline "Vi modeline for TeX text" b
+% vi: set tw=65 fo-=t wrap linebreak :
+endsnippet
+
+snippet doc "document structure" b
+\documentclass${2:[${3:a4paper}]}{${1:article|memoir}}
+endsnippet
+
+snippet beamer "Beamer class and themes" b
+\documentclass${1:[${2:utf8,}${3:t,}${4:smaller}]}{beamer}  % loads amsmath, hyperref and xcolor
+\usetheme{${5:Pittsburgh}}
+\usecolortheme{${6:seahorse}}
+$0
+endsnippet
+
+snippet preamble
+\usepackage[${4:brazil}]{babel}${5:
+\usepackage[${6:margin=3cm}]{geometry}}${7:
+\usepackage{mathtools,amssymb}}${8:
+\usepackage{graphicx}
+\graphicspath{{${9:path/to/figsdir}/}}}${10:
+\input{${11:`!p snip.rv = os.environ.get('HOME', '/home/leogama')`}/.config/commands.tex}}
+
+
+\begin{document}
+
+$0
+
+\end{document}
+endsnippet
+
+snippet use "\usepackage" b
+\usepackage${2:[${3:options}]}{${1:package}}$0
+endsnippet
+
+snippet "(re)?new" "\(re)newcommand" br
+\\`!p snip.rv = 're' if match.group(1) else ''
+`newcommand${1:*}{\\${2:name}}${3:[${4:num}]${5:[${6:default #1}]}}{$7`!p
+snip.rv = ' '.join('#%s' % (i+1) for i in range(int(t[4]) if t[4].isdigit() else 0))
+`}$0
+endsnippet
+
+snippet title "top matter" b
+\title{$1}${2:
+\subtitle{$3}}
+\author{${4:Leonardo Gama${5: - \texttt{leonardo.gama@usp.br}}}}${6:
+\institute{${7:Universidade de São Paulo}}}
+\date{\\$8`!p snip.rv = complete(t[8], ['empty', 'today'])`}
+\\$9`!p snip.rv = complete(t[9], ['maketitle', 'frame{\\titlepage}'])`
+$0
+endsnippet
+
+snippet $ "display equation"
+\[
+	$0
+\]
+endsnippet
+
+snippet rm "roman family" w
+\textrm{${1:${VISUAL:contents}}}$0
+endsnippet
+
+snippet sf "sans serif" w
+\textsf{${1:${VISUAL:contents}}}$0
+endsnippet
+
+snippet tt "typewriter" w
+\texttt{${1:${VISUAL:contents}}}$0
+endsnippet
+
+snippet bf "bold" w
+\textbf{${1:${VISUAL:contents}}}$0
+endsnippet
+
+snippet it "italic" w
+\textit{${1:${VISUAL:contents}}}$0
+endsnippet
+
+snippet em "emphasis" w
+\emph{${1:${VISUAL:contents}}}$0
+endsnippet
+
+snippet so "strike out" w
+\sout{${1:${VISUAL:contents}}}$0
+endsnippet
+
+snippet i "Individual item" b
+\item $0
+endsnippet
+
+snippet figure "figure from graphicx package" b
+\includegraphics${2:[${3:width=${4:1.0}\textwidth}]}{$1}$0
+endsnippet
+
+snippet trim "graphicx crop figure" w
+trim={${1:left} ${2:lower} ${3:right} ${4:upper}},clip$0
+endsnippet

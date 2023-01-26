@@ -1,0 +1,218 @@
+### Preamble ###
+
+snippet load "Install if necessary and load" b
+pkgs <- c('${1:package}')
+not_installed <- !pkgs %in% rownames(installed.packages())
+if (any(not_installed)) install.packages(pkgs[not_installed])
+suppressMessages(invisible(lapply(library, pkgs, character=TRUE)))
+endsnippet
+
+
+### General ###
+
+snippet fori "for i loop" b
+for (${1:i} in ${2:seq_along(${3:list})}) {
+	$4
+}
+endsnippet
+
+snippet fun "function definition"
+function(${1:args}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet func "function definition with roxygen annotation" b
+#' ${3:Short description}
+#'
+#' ${4:Long description}.
+#'
+`!p
+sep_pattern = re.compile('\s*=\s*')
+
+arg_pattern = re.compile("""( [\w.]+      # parameter name
+                              \s*=        # assignment
+                          (?: [^,]*?      # anything before a...
+                              \(.*?\) )+  # parentheses with commas inside
+                              [^(,]*  )   # ...followed by anything
+                            | \s*,\s*     # or a comma""", re.VERBOSE)
+
+val_pattern = re.compile("""( c\( (?='|") )?  # begin of choices vector followed by a quote
+                            ((?(1) [^,]*      # if 'c(' is present match anything before a comma
+                              |    .*    ))   # else just match everything""", re.VERBOSE)
+
+description_text = "  Defaults to \code{{{}}}."
+
+args = [sep_pattern.split(x, 1) for x in arg_pattern.split(t[2]) if x]
+args = [(x[0], val_pattern.match(x[1]).group(2) if len(x) > 1 else None) for x in args]
+args = [(arg, description_text.format(val) if val else "") for arg, val in args]
+
+snip.rv = '\n'.join("#' @param " + arg + val for arg, val in args)
+`${6:
+#' @inheritParams ${7:function}}${8:
+#'
+#' @return ${9:Returned object description}.}${10:
+#'
+#' @seealso \code{\link${11:[${12:package}]}{${13:name}}}}${14:
+#'${15:
+#' @import ${16:package}}${17:
+#' @export}}
+
+${1:name} <- function(${2:args}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+
+snippet loc "local namespace for temporary assignments" b
+local({
+	${1:${VISUAL}}
+})$0
+endsnippet
+
+snippet T "logical true" w
+TRUE
+endsnippet
+
+snippet F "logical false" w
+FALSE
+endsnippet
+
+snippet supm "suppress messages and warnings" b
+suppressMessages(${1:{
+	${VISUAL}
+}})
+endsnippet
+
+snippet supp "suppress annoying startup messages" b
+suppressPackageStartupMessages(${1:${VISUAL:lib}})
+endsnippet
+
+snippet supw "suppress warnings" b
+suppressWarnings(${1:{
+	${VISUAL}
+}})
+endsnippet
+
+
+snippet try "try catch" b
+tryCatch(${1:{
+	${2:${VISUAL:# expression}}
+}}, error = function(e) ${3:{
+	${4:# recover}
+}}${5:, finally = ${6:{
+	${7:# clean up}
+}}})
+endsnippet
+
+snippet fwrite "write tsv table" b
+write.table($1, '${2:${3:$1}.tsv}', ${4:row.names=F, }sep='\t', quote=F)
+endsnippet
+
+
+### Script template ###
+
+global !p
+
+class Doc(object):
+    def __init__(self, raw):
+        self.raw = raw
+
+    def __str__(self):
+        return self.name
+
+    def __unicode__(self):
+        return self.name
+
+class DocArg(Doc):
+    def __init__(self, arg):
+        super().__init__(arg.replace('...', ''))
+        self.name = self.raw.strip('[]')
+        self.lower = self.name.lower() #.replace('_', '-')
+
+    def is_optional(self):
+        return self.name != self.raw
+
+class DocOpt(Doc):
+    def __init__(self, opt):
+        super().__init__(opt)
+        self.name = self.raw.strip('-')
+
+    def has_default(self):
+        pass
+
+def get_doc_args(arg_list):
+    return [DocArg(arg) for arg in arg_list.split() if arg]
+
+def get_doc_opts(opt_list):
+    pass
+
+endglobal
+
+snippet #! "Rscript hashbang" b
+${1:#!/usr/bin/Rscript --no-init-file
+}${2:# vim: fileencoding=${3:utf-8}}
+$0
+endsnippet
+
+snippet template "R script template" b
+#!${1:/usr/bin/}Rscript --no-init-file
+${2:# vim: fileencoding=utf-8
+}
+### ${3:`!p snip.rv = fn`} version ${4:0.1.0} (${5:`date +%d-%m-%Y`}) `!p
+snip.rv = (55-len(t[3]+t[4]+t[5]))*'#'  # 55 + 17 constant chars = 72`
+
+"${6:Single line description of the program's main functionality.
+
+Here you can write a more exaustive description...}
+
+Usage: $3 [options] ${7:ARG1 [OPTIONAL_ARG1]}
+
+Input:
+  `!p
+args = get_doc_args(t[7])
+snip.rv = '\n  '.join(str(arg) for arg in args)`
+
+Output:
+  ${8:Whatever your program produces.}
+
+Options:
+  -h --help             show this help message
+  --version             show program version
+  ${9:-o --option           this option description
+}
+
+" -> doc
+########################################################################
+
+if (!interactive()) {
+	# Get and check arguments.
+	suppressMessage(library(docopt))
+	arg <- docopt(doc, version="$4\n", strict=TRUE)
+	arg <- arg[!sapply(arg, is.null)][-(1:2)]  # filter missing, 'help' and 'version'
+	clean <- function(s) gsub('-', '_', gsub('^-+', '', tolower(s)))
+	names(arg) <- clean(names(arg))${10:
+
+	if (!file.exists(arg$infile)) stop("No such file: ", arg$infile)
+	if (!grepl('\\.ext$', arg$infile)) stop("Bad format: ", arg$infile)
+	if (!grepl('^[[:digit:]]+$', arg$number)) stop("'n' must be an integer")}
+}
+${12:
+suppressMessages({
+	library(${13:package)}
+})
+}
+
+main <- function(`!p
+snip.rv = ', '.join(arg.lower+'=NULL' if arg.is_optional() else arg.lower for arg in args)`) {
+	$0
+}
+
+
+### WRAPPER SCRIPT ###
+
+if (!interactive()) {
+	${11:arg$number <- as.integer(arg$number)
+	}do.call(main, arg)
+}
+endsnippet

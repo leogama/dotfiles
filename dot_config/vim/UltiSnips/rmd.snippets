@@ -1,0 +1,75 @@
+extends r
+extends html
+
+snippet r "R code chunk" b
+\`\`\`{r ${1:label}${2:${3:, cache=FALSE}${4:, echo=FALSE}${5:, eval=FALSE}${6:, include=FALSE}}}
+$0
+\`\`\`
+endsnippet
+
+snippet header "R Markdown (docopt?) header" b
+---
+title: "$1"
+author: "${2:Leonardo R. Gama - leonardo.gama@usp.br}"
+date: "${3:`!v strftime("%d-%m-%Y")`}"
+output:
+  html_document:
+    code_folding: ${4:hide}
+    #df_print: kable OR paged
+    toc: true
+    toc_float:
+      collapsed: false
+---
+
+endsnippet
+
+snippet setup "Knitr setup chunk" b
+\`\`\`{r setup, include=FALSE}
+library(knitr)
+library(rprojroot)
+opts_knit$set(root.dir=find_root(has_file('LICENSE.txt')))
+opts_chunk$set(cache=TRUE, message=FALSE, rows.print=15, fig.align='center')
+options(digits=3, width=100)
+
+#knitr::knit_hooks$set(webgl=rgl::hook_webgl)
+#rgl::setupKnitr(autoprint=TRUE, FALSE, FALSE)
+\`\`\`
+
+\`\`\`{r imports, cache=FALSE, include=FALSE}
+local({
+	to_load <- c(
+			dplyr=TRUE,         # data.frame operations
+			magrittr=TRUE       # pipe operator (%>%), at last to avoid masking from others
+	)
+	pkgs <- names(to_load)
+
+	# Install packages if necessary.
+	not_installed <- !pkgs %in% basename(find.package(pkgs, quiet=TRUE))
+	if (!length(find.package('BiocManager', quiet=TRUE))) install.packages('BiocManager')
+	if (any(not_installed)) BiocManager::install(pkgs[not_installed], update=FALSE)
+
+	invisible(lapply(pkgs[to_load], library, character=TRUE))
+})
+\`\`\`
+endsnippet
+
+snippet source "Load a script in a namespace" b
+try(detach('${2:user:`!p snip.rv = os.path.splitext(os.path.basename(t[1]))[0]`}', character=TRUE), silent=TRUE)
+sys.source('${1:code/functions.R}', envir=attach(NULL, name='$2'))
+endsnippet
+
+snippet rif "Conditional content" w
+\`r if ($1) ${2:"${VISUAL}"}\`
+endsnippet
+
+snippet unhide "Description" b
+<script>
+	<!-- Don't hide single lines of code. -->
+	unhide = function() {
+		$('.r-code-collapse')
+			.filter((i, elem) => !/\n/.test(elem.textContent))
+			.prev().find('button').click();
+	}
+	$(document).ready(() => setTimeout(unhide, 100))
+</script>
+endsnippet

@@ -1,0 +1,11 @@
+snippet #! "bash non-interactive shell script" b
+#!/bin/bash
+set -euo pipefail
+
+endsnippet
+
+snippet trap "trap function" b
+${1:funcname} () {
+	$3
+}; trap $1 ${2:EXIT}
+endsnippet

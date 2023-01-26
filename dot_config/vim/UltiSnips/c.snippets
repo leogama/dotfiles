@@ -1,0 +1,46 @@
+snippet def "#define ..." b
+#define ${1:PREFIX_NAME} (${2:(type) value})
+endsnippet
+
+snippet so "sizeof" w
+sizeof(${1:var})
+endsnippet
+
+snippet stderr "Print message to stderr" b
+fputs("$1\n", stderr);
+endsnippet
+
+snippet zero "Zero out variable" b
+memset(&${1:var}, 0, sizeof($1));$0
+endsnippet
+
+
+### Sockets ###
+
+snippet accept "Accept connection" w
+accept(${1:listen_socket}, (struct sockaddr*) &${3:struct sockaddr_storage addr}, &${4:addr_len});$0
+endsnippet
+
+snippet getaddr "getaddrinfo()" w
+getaddrinfo(${1:NULL}, ${2:"port"}, &${3:hints}, &${4:ret_addr});$0
+endsnippet
+
+snippet getname "getnameinfo()" w
+getnameinfo((struct sockaddr*) &${1:struct sockaddr_storage addr}, ${2:addr_len}, ${3:addr_buf}, sizeof($3), NULL, 0, NI_NUMERICHOST);$0
+endsnippet
+
+snippet recv "recv()" w
+recv(${1:socket}, ${2:buffer}, ${3:sizeof($2)}, ${4:flags});$0
+endsnippet
+
+snippet send "send()" w
+send(${1:socket}, ${2:response}, strlen($2), ${3:flags});$0
+endsnippet
+
+snippet socket "Create a socket" b
+SOCKET ${1:name} = socket(${2:address}->ai_family, $2->ai_socktype, $2->ai_protocol);$0
+endsnippet
+
+snippet sockopt "setsockopt()" w
+setsockopt(${1:socket}, ${2:IPPROTO_IPV6}, ${3:IPV6_V6ONLY}, (void *) &${4:option}, sizeof($4))$0
+endsnippet

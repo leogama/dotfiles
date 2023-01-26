@@ -1,0 +1,18 @@
+global !p
+from vimsnippets import complete
+
+wrapper = {'int': 'Integer', 'double': 'Double'}
+endglobal
+
+snippet parse "Parse type" b
+$1`!p
+snip.rv = complete(t[1], ['int', 'double'])
+s = t[1] + snip.rv if not snip.rv.startswith('(') else ''
+` ${2:var} = `!p
+snip.rv = "{}.parse{}".format(wrapper.get(s, s.title()), s.title())
+`(${3:args[$4]});$0
+endsnippet
+
+snippet pf "printf .. (printf)"
+System.out.printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet

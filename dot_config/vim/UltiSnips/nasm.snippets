@@ -1,0 +1,42 @@
+snippet header "Comments header" b
+;
+; ${1:Short description}
+;
+; ${2:Long decription}
+;
+
+global _start
+
+section .bss
+
+section .data
+
+section .text
+
+_start: nop
+
+$0
+endsnippet
+
+snippet inc "Include macro file" b
+%include "$1"
+endsnippet
+
+snippet def "Define constant or single-line macro" b
+%define $1
+endsnippet
+
+snippet macro "Multi-line macro definition" b
+%macro ${1:Name} ${2:0}${3: ${4:default}}
+        $0
+%endmacro
+endsnippet
+
+snippet syscall "amd64 Unix system call" b
+mov rax, ${1:syscallnum}${2:
+mov rdi, ${3:arg1}${4:
+mov rsi, ${5:arg2}${6:
+mov rdx, ${7:arg3}${8:
+mov r10, ${9:arg4}}}}}
+syscall$0
+endsnippet

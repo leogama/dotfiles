@@ -1,0 +1,25 @@
+global !p
+
+from vimsnippets import complete
+endglobal
+
+
+snippet mod "Keybinding with modifier" b
+{
+	"description": "${1:Description in the UI}",
+	"manipulators": [
+		{
+			"type": "basic",
+			"from": {
+				"key_code": "$2",
+				"modifiers": {
+					"mandatory": ["$3"]${4:,
+					"optional": ["${5:any}"]}
+				}
+			},
+			"to": [{"$6`!p snip.rv = complete(t[6], ['key_code', 'shell_command'])`": "$7"}]${8:,
+			"description": "${9:documentation}"}
+		}
+	]
+},$0
+endsnippet
