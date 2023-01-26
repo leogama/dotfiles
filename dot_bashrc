@@ -1,0 +1,79 @@
+# ~/.bashrc: executed by bash in non-login interactive mode
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+. "$HOME/.local/lib/utils.sh"
+
+
+### GENERAL ###
+
+# Source global definitions
+for bashrc in bashrc bash.bashrc; do
+    [[ -f "/etc/$bashrc" ]] && source "/etc/$bashrc"
+done
+
+# Enable programmable completion features.
+if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
+    source /etc/bash_completion
+fi
+
+
+### HISTORY ###
+
+# Don't put duplicate lines or lines starting with space in the history.
+HISTCONTROL=ignoreboth:erasedups
+
+# Append to the history file, don't overwrite it
+shopt -s histappend
+
+# For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+
+### EXIBITION ###
+
+# Check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# Make less more friendly for non-text input files, see lesspipe(1)
+[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Enable color support of ls and grep
+if [[ -x /usr/bin/dircolors ]]; then
+    eval "$(dircolors -b)"
+fi
+
+
+### PROMPT ###
+
+# If this is an xterm set color and change the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    color_prompt=yes
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"';;
+esac
+
+# Uncomment to force a colored prompt, if the terminal has the capability.
+#force_color_prompt=yes
+if [[ -n $force_color_prompt ]]; then
+    if [[ -x /usr/bin/tput ]] && tput setaf 1 >&/dev/null; then
+        color_prompt=yes
+    fi
+fi
+
+# Define prompt appearence.
+if [[ "$color_prompt" == yes ]]; then
+    PS1='\[\e[0;32m\][\t]\[\e[m\] \[\e[1;34m\]\u@\h:\w \$\[\e[m\] '
+    PS2='> '
+else
+    PS1='[\t] \u@\h:\w \$ '
+fi
+
+unset color_prompt force_color_prompt
+
+
+try_source ~/.bashrc.local
+try_source ~/.config/aliases/posix.sh
