@@ -5,7 +5,7 @@ REPO='https://raw.githubusercontent.com/junegunn/vim-plug/master'
 SOURCEDIR={{ .chezmoi.sourceDir | quote }} 
 RESOURCES="${SOURCEDIR%/?*}/resources"  
 
-. "$SOURCEDIR/.local/lib/utils.sh"
+. "$SOURCEDIR/private_dot_local/lib/utils.sh"
 
 mkcd "$XDG_DATA_HOME/vim"
 
@@ -23,3 +23,5 @@ if confirm "Install plugins?"; then
         +PlugUpdate \
         +qall
 fi
+
+#vi:set ft=sh :
