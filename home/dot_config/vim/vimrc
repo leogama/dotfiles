@@ -1,4 +1,4 @@
-" ~/.vim/vimrc: sourced by Vim on startup
+" vimrc: sourced by Vim on startup
 
 """ HEAD """
 
@@ -19,7 +19,6 @@ endif
 " Appearance
 set t_Co=256                        " force (at least) 256 colors
 sil! set termguicolors              " try to set true colors
-"syntax enable                       " :syntax on overwrites highlight customizations(?)
 set cursorline                      " highlight the text line of the cursor
 sil! set cursorlineopt=line         " don't highlight line number
 set laststatus=2                    " always show status line
@@ -41,7 +40,6 @@ augroup PatchCodeschoolGroup
 augroup END
 
 " Indentation
-filetype indent on
 set expandtab
 set shiftround                      " round the indent to a multiple of 'shiftwidth'
 set shiftwidth=0                    " make 'shiftwidth' follow 'tabstop'
@@ -60,14 +58,13 @@ set formatoptions+=rlj
 set clipboard+=unnamed,unnamedplus
 
 " Miscelanous
-filetype plugin on
 set autowrite                       " automatically save before commands like :next and :make
 set backspace=indent,eol,start      " backspace works as expected
-"set hidden                          " don't unload buffers when they are abandoned
+"set hidden                         " don't unload buffers when they are abandoned
 set nohlsearch                      " can be toggled later
 set ignorecase incsearch smartcase  " search matching
 set lazyredraw                      " don't redraw screen during macros execution and the like
-"set nomagic                         " all regexp operators preceded with \
+"set nomagic                        " all regexp operators preceded with \
 set modeline modelines=5            " number of lines to look at begin/end of file (overwrites debian.vim)
 sil! set modelineexpr               " allow modeline expressions, such as for defining custom folding (version >= 8.1.1365)
 set scrolloff=1                     " minimum number of lines to show before/after the cursor line
@@ -364,7 +361,12 @@ if executable('R') && has('unix') && !has('win32unix')
     "Plug 'vim-pandoc/vim-rmarkdown', {'for': ['rmd']}
 endif
 
-call plug#end()
+if exists('g:plug_install_only')
+    PlugUpdate
+    finish
+endif
+
+call plug#end()  " executes 'filetype plugin indent on' and 'syntax enable'
 
 " Set colorscheme
 let bu_ignore_capitalization = 0  " bug: https://github.com/ustasb/gruvbox/commit/27080f0
@@ -503,7 +505,7 @@ set wildmenu
 """ TAIL """
 
 " Source a local configuration file if available
-if filereadable($MYVIMRC . '.local')
+if filereadable(expand('$MYVIMRC.local'))
     source $MYVIMRC.local
 endif
 

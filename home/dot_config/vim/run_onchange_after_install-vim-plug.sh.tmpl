@@ -9,19 +9,18 @@ RESOURCES="${SOURCEDIR%/?*}/resources"
 
 mkcd "$XDG_DATA_HOME/vim"
 
-if [ ! -e autoload/plug.vim ]; then
-    echo 'Installing vim-plug...'
-    mkdir -p autoload doc
-    curl_or_wget -v "$REPO/plug.vim" autoload/plug.vim
-    curl_or_wget -v "$REPO/doc/plug.txt" doc/plug.txt
-fi
+echo 'Installing vim-plug...'
+mkdir -p autoload doc
+curl_or_wget -v "$REPO/plug.vim" autoload/plug.vim
+curl_or_wget -v "$REPO/doc/plug.txt" doc/plug.txt
 
 if confirm "Install plugins?"; then
-    vim -u NONE \
-        -c 'packadd vimball' \
+    echo 'Installing Vim plugins...'
+    NOVIMRC=1 vim \
         -S "$RESOURCES/vim/syntaxrange.vmb" \
-        +PlugUpdate \
+        -c 'let g:plug_install_only = 1' \
+        -c 'source $MYVIMRC' \
         +qall
 fi
 
-#vi:set ft=sh :
+# vi:set ft=sh :
