@@ -17,7 +17,8 @@ curl_or_wget -v "$REPO/doc/plug.txt" doc/plug.txt
 if confirm "Install plugins?"; then
     echo 'Installing Vim plugins...'
     NOVIMRC=1 vim \
-        -S "$RESOURCES/vim/syntaxrange.vmb" \
+        "$RESOURCES/vim/syntaxrange.vmb" \
+        -c 'UseVimball $XDG_DATA_HOME/vim' \
         -c 'let g:plug_install_only = 1' \
         -c 'source $MYVIMRC' \
         +qall

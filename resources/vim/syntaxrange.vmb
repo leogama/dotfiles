@@ -1,5 +1,5 @@
 " Vimball Archiver by Charles E. Campbell
-UseVimball $XDG_DATA_HOME/vim
+UseVimbal
 finish
 autoload/SyntaxRange.vim	[[[1
 177
