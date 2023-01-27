@@ -1,10 +1,15 @@
 #!/bin/sh -eu
 
-. ~/.local/lib/utils.sh
-
 REPO='https://raw.githubusercontent.com/junegunn/vim-plug/master'
 
-if [[ ! -e autoload/plug.vim ]]; then
+SOURCEDIR={{ .chezmoi.sourceDir | quote }} 
+RESOURCES="${SOURCEDIR%/?*}/resources"  
+
+. "$SOURCEDIR/.local/lib/utils.sh"
+
+mkcd "$XDG_DATA_HOME/vim"
+
+if [ ! -e autoload/plug.vim ]; then
     echo 'Installing vim-plug...'
     mkdir -p autoload doc
     curl_or_wget -v "$REPO/plug.vim" autoload/plug.vim
@@ -14,7 +19,7 @@ fi
 if confirm "Install plugins?"; then
     vim -u NONE \
         -c 'packadd vimball' \
-        -S "$DOTDIR/vi/syntaxrange.vmb" \
+        -S "$RESOURCES/vim/syntaxrange.vmb" \
         +PlugUpdate \
         +qall
 fi
