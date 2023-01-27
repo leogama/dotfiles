@@ -1,6 +1,6 @@
-if empty($XDG_CONFIG_HOME) | let $XDG_CONFIG_HOME = $HOME . "/.config"      | endif
-if empty($XDG_DATA_HOME)   | let $XDG_DATA_HOME   = $HOME . "/.local/share" | endif
-if empty($XDG_STATE_HOME)  | let $XDG_STATE_HOME  = $HOME . "/.local/state" | endif
+if empty($XDG_CONFIG_HOME) | let $XDG_CONFIG_HOME = $HOME."/.config"      | endif
+if empty($XDG_DATA_HOME)   | let $XDG_DATA_HOME   = $HOME."/.local/share" | endif
+if empty($XDG_STATE_HOME)  | let $XDG_STATE_HOME  = $HOME."/.local/state" | endif
 
 set runtimepath^=$XDG_CONFIG_HOME/vim
 set runtimepath+=$XDG_DATA_HOME/vim
@@ -21,7 +21,7 @@ if !has('nvim')
     set viminfofile=$XDG_STATE_HOME/vim/viminfo
 endif
 
-let $MYVIMRC = $XDG_CONFIG_HOME . "/vim/vimrc"
+let $MYVIMRC = $XDG_CONFIG_HOME."/vim/vimrc"
 if filereadable($MYVIMRC)
     source $MYVIMRC
 endif
