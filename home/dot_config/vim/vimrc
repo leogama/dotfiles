@@ -132,7 +132,7 @@ map <Leader>k ddkP
 
 " set word to uppercase / toggle case
 nmap cu     g~iw
-imap <C-u> <Esc>gUiwea
+"imap <C-u> <Esc>gUiwea
 
 fun InsideComment()
     let C = col('.')
@@ -221,6 +221,14 @@ command -range -bang Sort {
     setline('.', getline('.') .. join(words, ', ') .. ',')
     execute 'normal' 'gwgw'
 }
+
+function! Exec(cmd)
+    redir @a
+    exec printf('silent %s',a:cmd)
+    redir END
+    tabnew
+    norm "ap
+endfunction
 
 """ AUTOCOMMANDS """
 augroup CommentTextwidth
