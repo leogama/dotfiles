@@ -12,11 +12,13 @@ let b:ale_linters = ['pylama']
 
 let jupyter_mapkeys = 0
 
-nmap <buffer><silent>  <Leader>pf  :exe 'sil !jupyter qtconsole --JupyterWidget.include_other_output=True &' <bar> redraw! <bar> sleep <bar> JupyterConnect<CR>
-nmap <buffer><silent>  <Leader>l   :JupyterSendRange<CR>
-nmap <buffer><silent>  <Leader>d   :JupyterSendRange<CR>j^
-vmap <buffer><silent>  <Leader>v   :'<,'>JupyterSendRange<CR>
-
+nmap <buffer><silent>  <LocalLeader>rf  :Term jupyter console <bar> redraw! <bar> sleep 2 <bar> JupyterConnect<CR>
+nmap <buffer><silent>  <LocalLeader>qf  :exe 'sil !jupyter qtconsole &' <bar> redraw! <bar> sleep <bar> JupyterConnect<CR>
+nmap <buffer><silent>  <LocalLeader>l   :JupyterSendRange<CR>
+nmap <buffer><silent>  <LocalLeader>d   :JupyterSendRange <bar> :call search("\\n\\s*\\zs[^[:space:]#]")<CR>
+nmap <buffer><silent>  <LocalLeader>e   <Plug>JupyterRunTextObj
+vmap <buffer><silent>  <LocalLeader>v   <Plug>JupyterRunVisual
+nmap <buffer><silent>  <LocalLeader>pd  <LocalLeader>eip})
 
 
 """ IPython """
