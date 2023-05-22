@@ -79,6 +79,9 @@ set t_vb=[?5h$<50>[?5l          " 50 ms visual bell (default is 200!)
 let asmsyntax = 'nasm'              " default filetype for .asm extensions
 let tex_flavor = 'latex'            " default filetype for .tex extensions
 
+""" GUI OPTIONS """
+set guifont=Fira\ Code\ Medium\ 10
+
 """ MAPPINNGS """
 
 " Lowercase key pairs unmapped by default:
@@ -100,38 +103,56 @@ map <Space> <Leader>
 " disable default mappings
 map qq <Nop>
 
+" easier move keys for Dvorak
+"   left: <s> alone is pretty useless (use <c>)
+map l <Nop>
+noremap s l
+"   up and down: in the left home row
+map k <Nop>
+noremap o k
+map j <Nop>
+noremap u j
+
+" remaps related to move keys
+noremap k <C-r>
+noremap j u
+noremap <Enter> o
+
+" window navigation in tmux
+noremap <silent> <C-u>  :<C-u>TmuxNavigateDown<CR>
+noremap <silent> <C-o>  :<C-u>TmuxNavigateUp<CR>
+noremap <silent> <C-h>  :<C-u>TmuxNavigateLeft<CR>
+noremap <silent> <C-s>  :<C-u>TmuxNavigateRight<CR>
+
 " guarantee window navigation outside tmux
+map <M-o> <C-o>
+map <M-u> <C-u>
 map <M-h> <C-h>
-map <M-j> <C-j>
-map <M-k> <C-k>
-map <M-l> <C-l>
+map <M-s> <C-s>
 
 " terminal navigation
+tnoremap <C-o> <C-w><C-k>
+tnoremap <C-u> <C-w><C-j>
 tnoremap <C-h> <C-w><C-h>
-tnoremap <C-j> <C-w><C-j>
-tnoremap <C-k> <C-w><C-k>
-tnoremap <C-l> <C-w><C-l>
+tnoremap <C-s> <C-w><C-l>
+
+" move current line up or down
+noremap <Leader>u ddp
+noremap <Leader>o ddkP
 
 " easier to reach begin/end of line
 noremap <C-a> ^
 nnoremap <C-e> $
 vnoremap $ $h
 inoremap <C-h> <Left>
-inoremap <C-l> <Right>
+inoremap <C-s> <Right>
 
 " go to opening bracket not in the first column
-map <silent> [[  m':call search('{\(\n\<bar> \)', 'bW')<CR>w99[{
-map <silent> ]]  m'j0[[%:call search('{\(\n\<bar> \)', 'W')<CR>
-
-" insert blank line
-nmap <Enter> o<Esc>
-
-" move current line up or down
-map <Leader>j ddp
-map <Leader>k ddkP
+noremap <silent> [[  m':call search('{\(\n\<bar> \)', 'bW')<CR>w99[{
+noremap <silent> ]]  m'j0[[%:call search('{\(\n\<bar> \)', 'W')<CR>
 
 " set word to uppercase / toggle case
-nmap cu     g~iw
+nnoremap cu     g~iw
 "imap <C-u> <Esc>gUiwea
 
 fun InsideComment()
@@ -314,6 +335,7 @@ Plug 'whiteinge/diffconflicts', {'tag': '*'}
 Plug 'ervandew/supertab'  " script_id=1643
 if has('python3')
     Plug 'leogama/ultisnips', {'branch': 'patch-normalize-path'}  " script_id=2715
+    Plug 'python-mode/python-mode', {'for': 'python', 'branch': 'develop'}
 else
     Plug 'garbas/vim-snipmate'
     Plug 'MarcWeber/vim-addon-mw-utils'
