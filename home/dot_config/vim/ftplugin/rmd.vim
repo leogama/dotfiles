@@ -5,6 +5,13 @@
 runtime ftplugin/r.vim
 
 
+" vim-pandoc
+let pandoc#folding#fdc = 0
+let pandoc#folding#fold_yaml = 1
+let pandoc#folding#fold_fenced_codeblocks = 1
+let pandoc#keyboard#display_motions = 0  " gj and gk
+
+
 " Render a document with rmarkdown using parameters and custom file name.
 nmap <silent> <buffer> <Leader>rk :call RMakeRmd("default")<CR>
 nmap <silent> <buffer> <Leader>rK :call RMakeRmdParams("default")<CR>

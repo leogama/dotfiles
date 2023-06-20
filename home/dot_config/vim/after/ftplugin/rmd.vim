@@ -1,10 +1,6 @@
 " Nvim-R
 unmap <buffer> <Leader>rc
-
-" vim-pandoc
-let pandoc#folding#fdc = 0
-let pandoc#folding#fold_yaml = 1
-let pandoc#folding#fold_fenced_codeblocks = 1
+unmap <buffer> <Leader>cd
 
 " from github.com/vim-pandoc/vim-rmarkdown
 PandocHighlight r
