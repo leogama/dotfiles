@@ -1,0 +1,7 @@
+{{ if (joinPath .chezmoi.sourceDir ".chezmoiignore.groups" | glob | and (not (env "CHEZMOIG_DISABLE"))) }}
+    {{- include ".chezmoiignore.groups" }}
+{{ end }}
+
+{{ if joinPath .chezmoi.sourceDir ".chezmoiignore.local" | glob }}
+    {{- include ".chezmoiignore.local" }}
+{{ end }}
