@@ -1,0 +1,9 @@
+}} bash {{
+.bashrc
+
+}} diceware {{
+.diceware.ini
+
+}} vim {{
+.vimrc
+.config/vim/**/*
