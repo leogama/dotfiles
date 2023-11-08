@@ -1,0 +1,67 @@
+# vi: set ft=bash.sh :
+. "$HOME/.local/lib/utils.sh"
+
+# Identify operating system.
+THIS_OS="$(uname -s)"
+case "$THIS_OS" in
+    Linux*)     THIS_OS=Linux;;
+    Darwin*)    THIS_OS=Mac;;
+    *)          THIS_OS="UNKNOWN:$THIS_OS"
+esac
+export THIS_OS
+
+# Identify number of *logical* cores available.
+#
+# nproc:    GNU Coreutils tool
+# sysctl:   macOS tool/API
+# getconf:  POSIX tool
+#   _NPROCESSORS_ONLN:  Linux and macOS
+#   NPROCESSORS_ONLN:   FreeBSD, etc.
+#
+# https://stackoverflow.com/questions/6481005/how-to-obtain-the-number-of-cpus-cores-in-linux-from-the-command-line
+NCPUS="$({ nproc || sysctl -n hw.logicalcpu_max || getconf _NPROCESSORS_ONLN || getconf NPROCESSORS_ONLN; } 2>/dev/null)"
+export NCPUS
+
+# Set PATH and CDPATH.
+prepend_path ~/.local/lib
+prepend_path ~/.local/bin
+
+# Configure keyboard
+try_source ~/.xsessionrc 2>/dev/null
+
+# Set a vi flavour as EDITOR.
+for cmd in vi nvim vim; do
+    if is_command $cmd; then
+        EDITOR=$cmd
+    fi
+done
+export EDITOR
+
+# Set pager
+export PAGER='less -S'
+
+# Set TexLive Manager directory.
+if is_command tlmgr; then
+    export TEXMFHOME=~/.tlmgr
+fi
+
+# Configure ssh-agent.
+if is_command ssh-agent; then
+    export SSH_AUTH_SOCK=~/.ssh/auth_sock
+    if [ ! -S $SSH_AUTH_SOCK ]; then
+        $(AUTH_SOCK_LINK="$SSH_AUTH_SOCK"; eval $(ssh-agent) >/dev/null && ln -sf "$SSH_AUTH_SOCK" "$AUTH_SOCK_LINK")
+    fi
+    #ssh-add -l >/dev/null || ssh-add ~/.ssh/id*
+fi
+
+# Used by x11_update() function in R.
+if is_command R; then
+    echo $DISPLAY > ~/.display
+fi
+
+try_source ~/.profile.local
+
+# If running bash, source bashrc.
+if [ -n "$BASH" ]; then
+    try_source ~/.bashrc
+fi

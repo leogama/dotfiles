@@ -4,6 +4,10 @@
 }} diceware {{
 .diceware.ini
 
+}} sh {{
+.profile
+.config/sh/**/*
+
 }} vim {{
 .vimrc
 .config/vim/**/*
