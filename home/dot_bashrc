@@ -1,22 +1,22 @@
 # ~/.bashrc: executed by bash in non-login interactive mode
+# vi: set ft=bash.sh :
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-. "$HOME/.local/lib/utils.sh"
+source "$HOME/.local/lib/utils.sh"
 
 
-### GENERAL ###
-
-# Source global definitions
-for bashrc in bashrc bash.bashrc; do
-    [[ -f "/etc/$bashrc" ]] && source "/etc/$bashrc"
-done
+### BEHAVIOR ###
 
 # Enable programmable completion features.
-if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
-    source /etc/bash_completion
+if ! shopt -oq posix; then
+    try_source /usr/share/bash-completion/bash_completion
 fi
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+shopt -s globstar
 
 
 ### HISTORY ###
@@ -24,12 +24,8 @@ fi
 # Don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth:erasedups
 
-# Append to the history file, don't overwrite it
+# Append to the history file, don't overwrite it.
 shopt -s histappend
-
-# For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
 
 
 ### EXIBITION ###
@@ -38,8 +34,8 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# Make less more friendly for non-text input files, see lesspipe(1)
-[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
+# Make less more friendly for non-text input files, see lesspipe(1).
+#[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Enable color support of ls and grep
 if [[ -x /usr/bin/dircolors ]]; then
@@ -50,19 +46,36 @@ fi
 ### PROMPT ###
 
 # If this is an xterm set color and change the title to user@host:dir
+#case "$TERM" in
+#    xterm*|rxvt*)
+#        color_prompt=yes
+#        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+#        ;;
+#esac
+# or...
+# set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-xterm*|rxvt*)
-    color_prompt=yes
-    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"';;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # Uncomment to force a colored prompt, if the terminal has the capability.
 #force_color_prompt=yes
-if [[ -n $force_color_prompt ]]; then
-    if [[ -x /usr/bin/tput ]] && tput setaf 1 >&/dev/null; then
-        color_prompt=yes
-    fi
-fi
+#if [[ -n $force_color_prompt ]]; then
+#    if [[ -x /usr/bin/tput ]] && tput setaf 1 >&/dev/null; then
+#        color_prompt=yes
+#    fi
+#fi
+# or...
+#if [ -n "$force_color_prompt" ]; then
+#    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+#        # We have color support; assume it's compliant with Ecma-48
+#        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+#        # a case would tend to support setf rather than setaf.)
+#        color_prompt=yes
+#    else
+#        color_prompt=
+#    fi
+#fi
 
 # Define prompt appearence.
 if [[ "$color_prompt" == yes ]]; then
@@ -71,9 +84,26 @@ if [[ "$color_prompt" == yes ]]; then
 else
     PS1='[\t] \u@\h:\w \$ '
 fi
+# or...
+#if [ "$color_prompt" = yes ]; then
+#    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#else
+#    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+#fi
 
 unset color_prompt force_color_prompt
 
+# If this is an xterm set the title to user@host:dir
+#case "$TERM" in
+#xterm*|rxvt*)
+#    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+#    ;;
+#*)
+#    ;;
+#esac
 
-try_source ~/.bashrc.local
-try_source ~/.config/aliases/posix.sh
+
+# Read local bash settings and aliases.
+try_source "$HOME/.config/bash/bashrc"
+try_source "$HOME/.config/sh/alias.sh"
+try_source "$HOME/.config/bash/alias.sh"
