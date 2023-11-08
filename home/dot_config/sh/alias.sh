@@ -328,6 +328,9 @@ pip3 () {
     command pip3 "$@"
 }
 
+# virtual environment
+alias activate='test -f .venv/bin/activate && . .venv/bin/activate'
+
 
 ### Miscelaneous commands ###
 
