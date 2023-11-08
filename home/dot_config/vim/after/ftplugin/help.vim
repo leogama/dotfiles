@@ -13,6 +13,6 @@ nnoremap <buffer> <nowait> <silent>  q  :quit<Enter>
 " Try to keep help text centralized.
 augroup HelpMargin
     autocmd!
-    autocmd BufEnter,CursorMoved,VimResized <buffer> :let b:margin = (winwidth(0) - 78) / 2
-    autocmd BufEnter,CursorMoved,VimResized <buffer> :let &l:foldcolumn = b:margin > 0 ? b:margin : 0
+    autocmd BufEnter,CursorMoved,VimResized <buffer> :let b:margin = max([0, (winwidth(0) - 78) / 2])
+    autocmd BufEnter,CursorMoved,VimResized <buffer> :let &l:foldcolumn = b:margin < 12 ? b:margin : 12
 augroup END
