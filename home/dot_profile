@@ -41,7 +41,7 @@ export PAGER='less -S'
 
 # Set TexLive Manager directory.
 if is_command tlmgr; then
-    export TEXMFHOME="$HOME/.tlmgr
+    export TEXMFHOME="$HOME/.tlmgr"
 fi
 
 # Configure ssh-agent.
