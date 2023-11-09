@@ -44,15 +44,14 @@ _which () {
     fi
 
     # Print body if function.
-    if [[ -n "$BASH" && $(type -t "$CMD") == function ]]; then
+    if [[ "$shell" == bash && $(type -t "$CMD") == function ]]; then
         echo
         declare -f "$CMD"
-    elif [[ $(whence -w "$CMD") =~ function ]]; then
-        # ZSH
+    elif [[ "$shell" == zsh && $(whence -w "$CMD") =~ function ]]; then
         echo
         functions -x 4 "$CMD"
-    fi | {
-        command -v highlight >/dev/null && highlight -S $shell -O xterm256
-    }
+    fi #| {
+        #command -v highlight >/dev/null && highlight -S $shell -O xterm256
+    #}
 }
 # vi: set ft=bash.sh :

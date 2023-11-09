@@ -317,11 +317,14 @@ alias python='python3'
 alias ipython='ipython3'
 alias pudb='PYTHONBREAKPOINT="pudb.set_trace" pudb3'
 alias pip='pip3'
+
 pip3 () {
+    # Substitute 'remove' by the 'uninstall' subcommand.
     if [ "$1" = 'remove' ]; then
         shift
         set -- uninstall "$@"
     fi
+    # If can't update pip, don't show warning.
     if groups 2>/dev/null | command grep -qv -e admin -e sudo; then
         set -- --disable-pip-version-check "$@"
     fi
