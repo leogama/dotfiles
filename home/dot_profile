@@ -56,7 +56,7 @@ if is_command ssh-agent; then
 fi
 
 # Used by x11_update() function in R.
-if [ -n "$DISPLAY"] && is_command R; then
+if [ -n "$DISPLAY" ] && is_command R; then
     mkdir -p "$HOME/.local/state/R"
     echo "$DISPLAY" > "$HOME/.local/state/R/display"
 fi
