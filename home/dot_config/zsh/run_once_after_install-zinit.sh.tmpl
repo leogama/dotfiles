@@ -13,7 +13,7 @@ bash -c "$(curl --fail --show-error --silent --location $REPO/scripts/install.sh
                sed 's/command git clone/\0 --depth 1/')"
 
 if confirm "Install Zsh plugins?"; then
-    zsh -c 'source "$ZDOTDIR/.zshrc"; zinit self-update; zinit update --all'
+    zsh -ic 'zinit self-update'
 fi
 
 # vi:set ft=sh :
