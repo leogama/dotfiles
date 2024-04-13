@@ -1,0 +1,28 @@
+# Executables
+*.bin
+*.o
+*.os
+*.class
+*.pyc
+__pycache__
+
+# Hidden files
+.DS_Store
+.*.sw*
+.ipynb_checkpoints
+
+# R stuff
+.Rhistory
+*.RData
+man/
+
+# LaTeX and friends
+latex.out/
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.log
+*.out.ps
+*.pytxcode
+pythontex-files-*
