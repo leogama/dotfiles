@@ -1,6 +1,6 @@
 # $ZOTDIR/.alias.zsh: specific aliases for zsh
 
-try_source ~/.config/alias.sh
+try_source "$XDG_CONFIG_HOME/sh/alias.sh"
 
 alias sudo='sudo '
 
@@ -17,4 +17,4 @@ function printd() {
 
 alias todone='todo_task_done'
 
-try_source $ZOTDIR/.alias.local.zsh
+try_source "$ZOTDIR/.alias.local.zsh"
