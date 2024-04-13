@@ -1,6 +1,6 @@
 #!/bin/sh -eu
 
-REPO='https://raw.githubusercontent.com/junegunn/vim-plug/master'
+REPO='https://raw.githubusercontent.com/junegunn/vim-plug/HEAD'
 
 SOURCEDIR={{ .chezmoi.sourceDir | quote }} 
 RESOURCES="${SOURCEDIR%/?*}/resources"  
@@ -14,8 +14,7 @@ mkdir -p autoload doc
 curl_or_wget -v "$REPO/plug.vim" autoload/plug.vim
 curl_or_wget -v "$REPO/doc/plug.txt" doc/plug.txt
 
-if confirm "Install plugins?"; then
-    echo 'Installing Vim plugins...'
+if confirm "Install Vim plugins?"; then
     NOVIMRC=1 vim \
         "$RESOURCES/vim/syntaxrange.vmb" \
         -c 'UseVimball $XDG_DATA_HOME/vim' \
