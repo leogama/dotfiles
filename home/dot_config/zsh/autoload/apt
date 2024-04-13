@@ -1,0 +1,13 @@
+case $1 in
+    search)
+        case $2 in
+            -w) command apt search '(^|[^[:alpha:]])'$3'($|[^[:alpha:]])' ;;
+            *)  command apt $* ;;
+        esac
+    ;;
+    *)
+        command apt $*
+    ;;
+esac
+
+# vi:set ft=zsh :

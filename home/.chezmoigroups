@@ -11,3 +11,6 @@
 }} vim {{
 .vimrc
 .config/vim/**/*
+
+}} zsh {{
+.config/zsh/**/*

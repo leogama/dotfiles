@@ -1,0 +1,12 @@
+if [[ -n "$1" ]]; then
+    case "$1" in
+        -h ) command lf -help ;;
+        -doc ) command lf -doc | less ;;
+        -* ) command lf "$@" ;;
+        *) (cd "$1"; command lf) ;;
+    esac
+else
+    command lf
+fi
+
+# vi: set ft=zsh :

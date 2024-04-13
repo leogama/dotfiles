@@ -1,0 +1,79 @@
+source ~/.local/lib/utils.sh
+
+
+### Initiate plugin manager ###
+
+source "$XDG_DATA_HOME/zinit/zinit.git/zinit.zsh"
+
+# compinit may have been called by system's rc.
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+
+### Options ###
+
+# Set CDPATH (it's better not to export).
+CDPATH=".:$HOME:$HOME/Projects:$HOME/Projects/amphybio:$HOME/Projects/study"
+
+# History behavior.
+SAVEHIST=10000
+HISTSIZE=$SAVEHIST
+HISTFILE="$ZDOTDIR/history"
+setopt hist_ignore_all_dups hist_ignore_space hist_no_store hist_reduce_blanks share_history
+bindkey '^R' history-incremental-search-backward
+histchars[2]='|'  # use '|' for rapid substitutions, ex.:  % |foo|bar:G
+
+# Globbing behavior.
+setopt csh_null_glob ksh_glob
+
+# Allow comments in interactive mode.
+# NOTE: useful for saving to history without executing.
+setopt interactive_comments
+
+
+### Commands ###
+
+# aclements/latexrun fork with fixes:
+zinit ice as=command ver=fixes if="is_command latex"; zinit load ahueck/latexrun
+zinit ice as=command from=gh-r if="! is_command lf"; zinit load gokcehan/lf
+zinit ice as=command; zinit load raylee/tldr
+
+# Load aliases and all functions in $ZDOTDIR/autoload
+try_source "$ZDOTDIR/alias.zsh"
+if [[ -d "$ZDOTDIR/autoload" ]]; then
+    fpath=("$ZDOTDIR/autoload" $fpath)
+    autoload -U ${fpath[1]}/*(:t)
+fi
+
+
+### Plugins ###
+
+zinit load zsh-users/zsh-autosuggestions
+zinit snippet "$ZDOTDIR/custom/namedir.zsh"
+
+# Oh-My-ZSH! theme
+setopt promptsubst
+zinit snippet OMZ::lib/git.zsh
+zinit snippet OMZ::themes/agnoster.zsh-theme
+
+
+### Completion ###
+
+autoload -U compinit; compinit
+zinit cdreplay  # replay compdefs
+
+# Bash completions
+if [[ -d "$ZDOTDIR/bashcomp" ]]; then
+    autoload -U bashcompinit; bashcompinit
+    BASH_VERSION=ZSH
+    for bashcomp in "$ZDOTDIR/bashcomp/"*; do
+        source "$bashcomp"
+    done
+    unset BASH_VERSION
+fi
+
+# Custom
+zstyle ':completion:*:complete:ssh:*:*' tag-order '!users'  # just complete hosts
+
+
+try_source "$ZDOTDIR/.zshrc.local"

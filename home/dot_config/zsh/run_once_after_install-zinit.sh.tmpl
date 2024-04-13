@@ -1,0 +1,19 @@
+#!/bin/sh -eu
+
+REPO='https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD'
+
+SOURCEDIR={{ .chezmoi.sourceDir | quote }} 
+RESOURCES="${SOURCEDIR%/?*}/resources"  
+
+. "$SOURCEDIR/private_dot_local/lib/utils.sh"
+
+export XDG_DATA_HOME
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+bash -c "$(curl --fail --show-error --silent --location $REPO/scripts/install.sh | 
+               sed 's/command git clone/\0 --depth 1/')"
+
+if confirm "Install Zsh plugins?"; then
+    zsh -c 'source "$ZDOTDIR/.zshrc"; zinit self-update; zinit update --all'
+fi
+
+# vi:set ft=sh :
