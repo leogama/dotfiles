@@ -10,7 +10,7 @@ let b:did_user_ftplugin = 1
 "let $R_LIBS_USER = '~/.local/lib/R-site-library'
 
 " assign hack
-iabbrev  <buffer> _ <-
+iabbrev  <buffer> -- <-
 "iabbrev  <buffer> = <-
 "inoremap <buffer> == ==
 
