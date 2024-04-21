@@ -17,8 +17,8 @@ iabbrev  <buffer> _ <-
 " logicals
 iabbrev <buffer> T TRUE
 iabbrev <buffer> F FALSE
-#iabbrev <buffer> =T =TRUE
-#iabbrev <buffer> =F =FALSE
+"iabbrev <buffer> =T =TRUE
+"iabbrev <buffer> =F =FALSE
 "iabbrev <buffer> (T (TRUE  # messes with AutoClose
 "iabbrev <buffer> (F (FALSE
 
