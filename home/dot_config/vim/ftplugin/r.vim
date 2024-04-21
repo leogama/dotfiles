@@ -10,14 +10,15 @@ let b:did_user_ftplugin = 1
 "let $R_LIBS_USER = '~/.local/lib/R-site-library'
 
 " assign hack
-iabbrev  <buffer> = <-
-inoremap <buffer> == ==
+iabbrev  <buffer> _ <-
+"iabbrev  <buffer> = <-
+"inoremap <buffer> == ==
 
 " logicals
 iabbrev <buffer> T TRUE
-iabbrev <buffer> =T =TRUE
 iabbrev <buffer> F FALSE
-iabbrev <buffer> =F =FALSE
+#iabbrev <buffer> =T =TRUE
+#iabbrev <buffer> =F =FALSE
 "iabbrev <buffer> (T (TRUE  # messes with AutoClose
 "iabbrev <buffer> (F (FALSE
 
