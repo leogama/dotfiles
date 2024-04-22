@@ -47,9 +47,9 @@ set softtabstop=-1                  " make 'softtabstop' follow 'shiftwidth'
 set tabstop=4
 
 " Text wrapping and formatting
-let textwidth_code = 80
-let textwidth_comment = 72
-let &textwidth = textwidth_code
+let code_textwidth = 80
+let comment_textwidth = 72
+let &textwidth = code_textwidth
 set colorcolumn=+2                  " highlight second column after 'textwidth'
 set linebreak nowrap                " break line at spaces when wrap is set
 set formatoptions+=rlj
@@ -167,9 +167,9 @@ endfun
 
 " format paragraph
 fun FormatParagraph()
-    let &textwidth = InsideComment() ? b:textwidth_comment : b:textwidth_code
+    let &textwidth = InsideComment() ? b:comment_textwidth : b:code_textwidth
     normal! gvgw
-    let &textwidth = b:textwidth_code
+    let &textwidth = b:code_textwidth
 endfun
 vmap <silent> gw                :call FormatParagraph()<CR>
 nmap          gww               {gq}gE
@@ -193,6 +193,7 @@ fun EditVimrc()
     endif
     if has('gui_running') && filewritable($MYGVIMRC)
         vsplit $MYGVIMRC
+        wincmd p
     endif
 endfun
 
@@ -260,20 +261,20 @@ augroup CommentTextwidth
     autocmd InsertLeave                 *  :call AdjustTextWidth('leave')
 augroup END
 fun SetDefaultTextWidth()
-    if !exists('b:textwidth_code')
-        let b:textwidth_code = g:textwidth_code
+    if !exists('b:code_textwidth')
+        let b:code_textwidth = g:code_textwidth
     endif
-    if !exists('b:textwidth_comment')
-        let b:textwidth_comment = g:textwidth_comment
+    if !exists('b:comment_textwidth')
+        let b:comment_textwidth = g:comment_textwidth
     endif
 endfun
 fun AdjustTextWidth(event)
     if &textwidth == 0
         return
     elseif a:event == 'enter'
-        let &textwidth = InsideComment() ? b:textwidth_comment : b:textwidth_code
+        let &textwidth = InsideComment() ? b:comment_textwidth : b:code_textwidth
     elseif a:event == 'leave'
-        let &textwidth = b:textwidth_code
+        let &textwidth = b:code_textwidth
     endif
 endfun
 
