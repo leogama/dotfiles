@@ -4,6 +4,9 @@
 }} diceware {{
 .diceware.ini
 
+}} git {{
+.config/git/**/*
+
 }} sh {{
 .profile
 .config/sh/**/*
