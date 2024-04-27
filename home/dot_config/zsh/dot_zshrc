@@ -1,3 +1,6 @@
+# .zsh: executed by ZSH interactive shells
+# vi: set ft=zsh :
+
 source ~/.local/lib/utils.sh
 
 
@@ -13,15 +16,16 @@ autoload -Uz _zinit
 ### Options ###
 
 # Set CDPATH (it's better not to export).
-CDPATH=".:$HOME:$HOME/Projects:$HOME/Projects/amphybio:$HOME/Projects/study"
+CDPATH=".:$HOME:$HOME/Repos"
 
 # History behavior.
 SAVEHIST=10000
 HISTSIZE=$SAVEHIST
 HISTFILE="$ZDOTDIR/history"
-setopt hist_ignore_all_dups hist_ignore_space hist_no_store hist_reduce_blanks share_history
-bindkey '^R' history-incremental-search-backward
+setopt hist_ignore_all_dups hist_ignore_space hist_no_store hist_reduce_blanks \
+    share_history
 histchars[2]='|'  # use '|' for rapid substitutions, ex.:  % |foo|bar:G
+bindkey '^R' history-incremental-search-backward
 
 # Globbing behavior.
 setopt csh_null_glob ksh_glob

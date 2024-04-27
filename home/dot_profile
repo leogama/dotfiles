@@ -4,11 +4,10 @@
 . "$HOME/.local/lib/utils.sh"
 
 # Identify operating system.
-THIS_OS="$(uname -s)"
-case "$THIS_OS" in
-    Linux*)     THIS_OS=Linux;;
-    Darwin*)    THIS_OS=Mac;;
-    *)          THIS_OS="UNKNOWN:$THIS_OS"
+case "$(uname -s)" in
+    Linux*)     OS_NAME=Linux;;
+    Darwin*)    OS_NAME=macOS;;
+    *)          OS_NAME="UNKNOWN:$THIS_OS";;
 esac
 export THIS_OS
 
@@ -20,17 +19,20 @@ export THIS_OS
 #   _NPROCESSORS_ONLN:  Linux and macOS
 #   NPROCESSORS_ONLN:   FreeBSD, etc.
 #
-# https://stackoverflow.com/questions/6481005/how-to-obtain-the-number-of-cpus-cores-in-linux-from-the-command-line
-export NCPUS="$({ nproc || sysctl -n hw.logicalcpu_max || getconf _NPROCESSORS_ONLN || getconf NPROCESSORS_ONLN; } 2>/dev/null)"
+# Reference: https://stackoverflow.com/q/6481005/3738764
 
-# Set PATH and CDPATH.
+export NCPUS="$({
+    nproc ||
+        sysctl -n hw.logicalcpu_max ||
+        getconf _NPROCESSORS_ONLN ||
+        getconf NPROCESSORS_ONLN;
+} 2>/dev/null)"
+
+# Add user directories to PATH.
 prepend_path "$HOME/.local/lib"
 prepend_path "$HOME/.local/bin"
 
-# Configure keyboard
-try_source "$HOME/.xsessionrc" 2>/dev/null
-
-# Set a vi flavour as EDITOR.
+# Set a vi flavour as EDITOR, from least to most preferred.
 for cmd in vi nvim vim; do
     if is_command $cmd; then
         EDITOR=$cmd

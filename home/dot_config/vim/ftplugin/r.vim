@@ -23,7 +23,7 @@ iabbrev <buffer> F FALSE
 "iabbrev <buffer> (F (FALSE
 
 " operators
-iabbrev <buffer> >> \|>
+iabbrev <buffer> .. \|>
 iabbrev <buffer> >% %>%
 iabbrev <buffer> >T %T>%
 iabbrev <buffer> >$ %$%
