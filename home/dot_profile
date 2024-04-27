@@ -5,9 +5,9 @@
 
 # Identify operating system.
 case "$(uname -s)" in
-    Linux*)     OS_NAME=Linux;;
-    Darwin*)    OS_NAME=macOS;;
-    *)          OS_NAME="UNKNOWN:$THIS_OS";;
+    Linux*)     OSNAME=Linux;;
+    Darwin*)    OSNAME=macOS;;
+    *)          OSNAME="UNKNOWN:$THIS_OS";;
 esac
 export THIS_OS
 
