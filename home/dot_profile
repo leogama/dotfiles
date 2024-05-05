@@ -7,9 +7,9 @@
 case "$(uname -s)" in
     Linux*)     OSNAME=Linux;;
     Darwin*)    OSNAME=macOS;;
-    *)          OSNAME="UNKNOWN:$THIS_OS";;
+    *)          OSNAME="UNKNOWN:$OSNAME";;
 esac
-export THIS_OS
+export OSNAME
 
 # Identify number of *logical* cores available.
 #

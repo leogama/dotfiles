@@ -8,7 +8,7 @@ fi
 
 ### Program execution ###
 
-if [ "$THIS_OS" = "Mac" ]; then
+if [ "$OSNAME" = "macOS" ]; then
     alias app='open -a'
 else
     alias app='gtk-launch'
@@ -66,7 +66,7 @@ findr () {
 #findr3 () { { find "$@" 3>&2 2>&1 1>&3 | grep -v 'Permission denied' >&3; } 3>&2 2>&1; }  # broken in zsh
 
 # ls and tree shorts
-if [ "$THIS_OS" = "Mac" ]; then
+if [ "$OSNAME" = "macOS" ]; then
     alias ls-color='command ls -G'
 else
     alias ls-color='command ls --color=auto --group-directories-first'
@@ -93,13 +93,13 @@ alias tree='tree.py'
 alias two='tree -L 2'
 
 # quick look
-case "$THIS_OS" in
+case "$OSNAME" in
     Linux* )
         ql () {
             sushi "$@"
         }
         ;;
-    Mac* )
+    macOS* )
         ql () {
             qlmanage -p "$@" >/dev/null 2>&1
         }
@@ -107,7 +107,7 @@ case "$THIS_OS" in
 esac
 
 # open file or url
-if [ ! "$THIS_OS" = "Mac" ]; then
+if [ ! "$OSNAME" = "macOS" ]; then
     open () {
         xdg-open "$@" 2>/dev/null
     }
@@ -135,7 +135,7 @@ fi
 
 # df/du: human readable bytes
 alias du='du -h'
-if [ "$THIS_OS" = "Mac" ]; then
+if [ "$OSNAME" = "macOS" ]; then
     alias _df='command df -H'
 else
     alias _df='command df -H --exclude-type=squashfs --exclude-type=tmpfs'
@@ -342,8 +342,8 @@ alias ontop='wmctrl -r ":SELECT:" -b add,above'
 alias rot13='tr "A-Za-z0-9" "N-ZA-Mn-za-m5-90-4"'
 
 # document conversion
-if [ "$THIS_OS" = "Mac" ]; then
-    alias doc2pdf='/Applications/LibreOffice.app/Contents/MacOS/soffice --convert-to pdf'
+if [ "$OSNAME" = "macOS" ]; then
+    alias doc2pdf='/Applications/LibreOffice.app/Contents/macOSOS/soffice --convert-to pdf'
 else
     alias doc2pdf='libreoffice --convert-to pdf'
 fi

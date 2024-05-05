@@ -9,21 +9,13 @@ let b:did_user_ftplugin = 1
 " for RCustomStart
 "let $R_LIBS_USER = '~/.local/lib/R-site-library'
 
-" assign hack
+" assignment and pipe operators
 iabbrev  <buffer> -- <-
+inoremap <buffer> .. \|>
 "iabbrev  <buffer> = <-
 "inoremap <buffer> == ==
 
-" logicals
-iabbrev <buffer> T TRUE
-iabbrev <buffer> F FALSE
-"iabbrev <buffer> =T =TRUE
-"iabbrev <buffer> =F =FALSE
-"iabbrev <buffer> (T (TRUE  # messes with AutoClose
-"iabbrev <buffer> (F (FALSE
-
-" operators
-iabbrev <buffer> .. \|>
+" extra operators
 iabbrev <buffer> >% %>%
 iabbrev <buffer> >T %T>%
 iabbrev <buffer> >$ %$%
@@ -31,8 +23,12 @@ iabbrev <buffer> inn %in%
 iabbrev <buffer> nin %nin%
 iabbrev <buffer> like %like%
 
+" logicals
+iabbrev <buffer> T TRUE
+iabbrev <buffer> F FALSE
+
 " vim-R plugin
-let R_args = ['--no-restore-data', '--quiet']  " the same as in .alias.sh
+let R_args = ['-q', '--no-restore-data']  " the same as in .alias.sh
 let R_nvim_wd = 1
 let R_assign = 0
 let R_rconsole_height = 18
