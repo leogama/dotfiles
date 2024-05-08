@@ -12,6 +12,7 @@ let b:did_user_ftplugin = 1
 " assignment and pipe operators
 iabbrev  <buffer> -- <-
 inoremap <buffer> .. \|>
+inoremap <buffer> ... ...
 "iabbrev  <buffer> = <-
 "inoremap <buffer> == ==
 
