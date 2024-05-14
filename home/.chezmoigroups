@@ -7,6 +7,9 @@
 }} git {{
 .config/git/**/*
 
+}} jupyter {{
+.jupyter/**/*
+
 }} sh {{
 .profile
 .config/sh/**/*
