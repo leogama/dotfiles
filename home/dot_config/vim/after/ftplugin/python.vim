@@ -7,10 +7,19 @@ endif
 let b:did_user_ftplugin = 1
 
 
+""" ALE """
+
 let b:ale_linters = ['pylama']
 
 
-let jupyter_mapkeys = 0
+""" Pymode """
+
+let g:pymode_lint_cwindow = 0
+
+
+""" Jupyter """
+
+let g:jupyter_mapkeys = 0
 
 nmap <buffer><silent>  <LocalLeader>rf  :Term jupyter console <bar> redraw! <bar> sleep 3 <bar> JupyterConnect<CR>
 nmap <buffer><silent>  <LocalLeader>qf  :exe 'sil !jupyter qtconsole &' <bar> redraw! <bar> sleep 3 <bar> JupyterConnect<CR>
