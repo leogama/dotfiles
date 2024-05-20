@@ -187,6 +187,35 @@ xkb_symbols "dvorak" {
 };
 
 
+////
+//// Custom Brazilian Dvorak layout                          2023-08-30
+//// "Dvorak Brasileiro Modificado"
+////
+//// Leonardo Gama    leonardo.gama@usp.br
+////
+//partial alphanumeric_keys
+//xkb_symbols "dvorak-custom" {
+//
+//    include "br(dvorak)"
+//    name[Group1]="Portuguese (Brazil, Dvorak-Custom)";
+//
+//// Upper row
+//    key <AD11> { [        equal,            plus,              section,        plusminus ] };
+//    key <AD12> { [   dead_acute,      dead_grave,                acute,            grave ] };
+//
+//// Central row
+//    key <AC11> { [        minus,      underscore,           0x01002015,       0x01000336 ] };
+//    key <BKSL> { [   dead_tilde, dead_circumflex,           asciitilde,      asciicircum ] };
+//
+//// Lower row
+//    key <LSGT> { [    backslash,             bar,             currency,        brokenbar ] };
+//    key <AB11> { [     ccedilla,        Ccedilla,            backslash,              bar ] };
+//
+//// Swap CapsLock and Escape
+//    include "capslock(swapescape)"
+//};
+
+
 //
 // Brazilian Nativo layout.
 //     This is a Dvorak-based layout, designed for the Portuguese language.
