@@ -1,4 +1,4 @@
-# ~/.profile: executed by login shells
+# ~/.profile: executed by login shells (including desktop sessions)
 # vi: set ft=bash.sh :
 
 . "$HOME/.local/lib/utils.sh"
