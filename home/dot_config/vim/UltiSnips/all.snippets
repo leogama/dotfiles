@@ -13,6 +13,7 @@ endsnippet
 snippet [ "bracket indentation" i
 [
 	$0
+endsnippet
 
 snippet { "curly bracket indentation" i
 {
@@ -28,26 +29,33 @@ snippet modeline "Vi modeline" w
 vi:set ${1:ft}=$0 :
 endsnippet
 
-snippet mpl "Mozilla Public License notice and file info" b
- Copyright  ${1:`!v strftime("%Y")`}  ${2:Owner}
 
- This Source Code Form is subject to the terms of the Mozilla Public
- License, v. 2.0. If a copy of the MPL was not distributed with this
- file, you can obtain one at https://mozilla.org/MPL/2.0/
+### Copyright and Licensing ###
 
- Project:  ${3:`basename $(git config --get remote.origin.url)`}
- Version:  $4
- Created:  ${5:`!v strftime("%d-%m-%Y")`}
- Updated:  09-08-2022
- Authors:  ${6:Leonardo Gama <${7:www.leogama.me}>}
+snippet copyright "Copyright notice"
+ Copyright  ${1:`!v strftime("%Y")`}  ${2:Leonardo Gama}
 endsnippet
 
-#post_expand "vim.command('''%d,%d call NERDComment('n', 'Sexy')''' % (snip.snippet_start[0], snip.snippet_end[0])); c = vim.current.window.cursor; snip.cursor.set(c[0]-1, c[1]-1)"
+snippet gpl2 "GNU General Public License version 2 notice" b
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License version 2 as
+ published by the Free Software Foundation; either version 2 of the License,
+ or (at your option) version 3.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License along
+ with this program; if not, write to the Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+endsnippet
 
-snippet mit "MIT license notice and file info" b
+snippet mit "MIT license notice" b
  MIT License
 
- Copyright  ${1:`!v strftime("%Y")`}  ${2:Owner}
+ copyright$0
 
  Permission is hereby granted, free of charge, to any person obtaining a
  copy of this software and associated documentation files (the "Software"),
@@ -66,12 +74,12 @@ snippet mit "MIT license notice and file info" b
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  DEALINGS IN THE SOFTWARE.
+endsnippet
 
- Project:  ${3:`basename $(git config --get remote.origin.url)`}
- Version:  $4
- Created:  ${5:`!v strftime("%d-%m-%Y")`}
- Updated:  $5
- Authors:  ${6:Leonardo Gama <${7:www.leogama.me}>}
+snippet mpl "Mozilla Public License notice" b
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, you can obtain one at https://mozilla.org/MPL/2.0/
 endsnippet
 
 snippet unlicense "The Unlicense (public domain)" b
@@ -97,3 +105,21 @@ snippet unlicense "The Unlicense (public domain)" b
 
  For more information, please refer to <https://unlicense.org>
 endsnippet
+
+
+# Project:  ${3:`basename $(git config --get remote.origin.url)`}
+# Version:  $4
+# Created:  ${5:`!v strftime("%d-%m-%Y")`}
+# Updated:  21-05-2024
+# Authors:  ${6:Leonardo Gama <${7:www.leogama.me}>}
+#endsnippet
+#
+##post_expand "vim.command('''%d,%d call NERDComment('n', 'Sexy')''' % (snip.snippet_start[0], snip.snippet_end[0])); c = vim.current.window.cursor; snip.cursor.set(c[0]-1, c[1]-1)"
+#
+# Project:  ${3:`basename $(git config --get remote.origin.url)`}
+# Version:  $4
+# Created:  ${5:`!v strftime("%d-%m-%Y")`}
+# Updated:  $5
+# Authors:  ${6:Leonardo Gama <${7:www.leogama.me}>}
+#endsnippet
+
