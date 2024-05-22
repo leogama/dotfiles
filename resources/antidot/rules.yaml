@@ -1,0 +1,9 @@
+version: 1
+rules:
+  - name: gitconfig
+    dotfile:
+      name: .gitconfig
+    actions:
+      - type: migrate
+        source: ${HOME}/.gitconfig
+        dest: ${XDG_CONFIG_HOME}/git/config
