@@ -40,7 +40,7 @@ setopt interactive_comments
 # aclements/latexrun fork with fixes:
 zinit ice as=command ver=fixes if="is_command latex"; zinit load ahueck/latexrun
 zinit ice as=command from=gh-r if="! is_command lf"; zinit load gokcehan/lf
-zinit ice as=command; zinit load raylee/tldr
+#zinit ice as=command; zinit load raylee/tldr  # Haskell version is better
 
 # Load aliases and all functions in $ZDOTDIR/autoload
 try_source "$ZDOTDIR/alias.zsh"
@@ -57,6 +57,7 @@ zinit snippet "$ZDOTDIR/custom/namedir.zsh"
 
 # Oh-My-ZSH! theme
 setopt promptsubst
+zinit snippet OMZ::lib/async_prompt.zsh
 zinit snippet OMZ::lib/git.zsh
 zinit snippet OMZ::themes/agnoster.zsh-theme
 
