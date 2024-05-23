@@ -7,3 +7,13 @@ rules:
       - type: migrate
         source: ${HOME}/.gitconfig
         dest: ${XDG_CONFIG_HOME}/git/config
+  - name: vim
+    dotfile:
+      name: .vimrc
+    actions:
+      - type: migrate
+        source: ${HOME}/.vimrc
+        dest: ${XDG_CONFIG_HOME}/vim/vimrc
+      - type: export
+        key: VIMINIT
+        value: source "${XDG_CONFIG_HOME}/vim/vimrc"
