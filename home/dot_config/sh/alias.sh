@@ -1,10 +1,4 @@
-# ~/.alias.sh: (mostly) POSIX compliant aliases
-
-if [ "$LIBUTILS" = "" ]; then
-    LIBUTILS="$HOME/.local/lib/utils.sh"
-    test -f "$LIBUTILS" && . "$LIBUTILS"
-fi
-
+# ~/.config/sh/alias.sh: (mostly) POSIX compliant aliases.
 
 ### Program execution ###
 
@@ -318,7 +312,7 @@ pip3 () {
 }
 
 # virtual environment
-alias activate='test -f .venv/bin/activate && . .venv/bin/activate'
+alias activate='. venv/bin/activate'
 
 
 ### Miscelaneous commands ###
@@ -398,9 +392,5 @@ sudoedit () {
         command sudoedit "$@"
     fi
 }
-
-for alias_file in ~/.config/sh/alias/*.sh; do
-    . "$alias_file"
-done 2>/dev/null
 
 # vi: set ft=sh :

@@ -1,17 +1,7 @@
-# POSIX compliant utility functions
-
-# Set XDG base directories
-
-: "${XDG_CACHE_HOME:=$HOME/.cache}"
-: "${XDG_CONFIG_HOME:=$HOME/.config}"
-: "${XDG_DATA_HOME:=$HOME/.local/share}"
-: "${XDG_STATE_HOME:=$HOME/.local/state}"
-: "${XDG_USER_PATH:=$HOME/.local/bin}"
-
-export XDG_CACHE_HOME XDG_CONFIG_HOME XDG_DATA_HOME XDG_STATE_HOME XDG_USER_PATH
+# lib/utils.sh: (mostly) POSIX compliant utility functions.
 
 
-# Define helper functions.
+## Very simple utilities ##
 
 is_command () {
     command -v $1 >/dev/null
@@ -29,10 +19,6 @@ mkcd () {
     mkdir -v -p "$1" && cd "$1"
 }
 
-try_source () {
-    if [ -r "$1" ]; then . "$1"; fi
-}
-
 prepend_path () {
     if [ -d "$1" ]; then
         case ":$PATH:" in
@@ -41,6 +27,13 @@ prepend_path () {
         esac
     fi
 }
+
+try_source () {
+    if [ -r "$1" ]; then . "$1"; fi
+}
+
+
+## Risky utilities ##
 
 confirm () {
     echo -n "${1:-Are you sure?} [y/N] "
@@ -82,5 +75,3 @@ curl_or_wget () {
         return 2
     fi
 }
-
-# vi: set ft=bash:sh :

@@ -1,7 +1,8 @@
-# .zsh: executed by ZSH interactive shells
+# .zshrc: executed by ZSH interactive shells
 # vi: set ft=zsh :
 
-source ~/.local/lib/utils.sh
+# Load utils library and POSIX shell stuff.
+source "$XDG_CONFIG_HOME/sh/rc.sh"
 
 
 ### Initiate plugin manager ###
@@ -14,9 +15,6 @@ autoload -Uz _zinit
 
 
 ### Options ###
-
-# Set CDPATH (it's better not to export).
-CDPATH=".:$HOME:$HOME/Repos"
 
 # History behavior.
 SAVEHIST=10000
@@ -42,8 +40,14 @@ zinit ice as=command ver=fixes if="is_command latex"; zinit load ahueck/latexrun
 zinit ice as=command from=gh-r if="! is_command lf"; zinit load gokcehan/lf
 #zinit ice as=command; zinit load raylee/tldr  # Haskell version is better
 
-# Load aliases and all functions in $ZDOTDIR/autoload
+# Load aliases and autoload functions.
 try_source "$ZDOTDIR/alias.zsh"
+if [[ -d "$ZDOTDIR/alias.d" ]]; then
+    for file in "$ZDOTDIR/alias.d"/*.zsh; do
+        try_source "$file"
+    done
+fi
+
 if [[ -d "$ZDOTDIR/autoload" ]]; then
     fpath=("$ZDOTDIR/autoload" $fpath)
     autoload -U ${fpath[1]}/*(:t)
