@@ -7,9 +7,9 @@
 CDPATH=".:$HOME:$HOME/Repos"
 
 # Load aliases and alias functions.
-try_source "$XDG_CONFIG_HOME/alias.sh"
-if [ -d "$XDG_CONFIG_HOME/alias.d" ]; then
-    for file in "$XDG_CONFIG_HOME/alias.d"/*.sh; do
+try_source "$XDG_CONFIG_HOME/sh/alias.sh"
+if [ -d "$XDG_CONFIG_HOME/sh/alias.d" ]; then
+    for file in "$XDG_CONFIG_HOME/sh/alias.d"/*.sh; do
         try_source "$file"
     done
 fi

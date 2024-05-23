@@ -35,8 +35,6 @@ if !exists('g:did_vimrc_setup')
 
     let g:netrw_home = expand('$XDG_DATA_HOME/vim')
     let g:plug_home = expand('$XDG_DATA_HOME/vim/plugged')
-
-    let $MYVIMRC = expand('$XDG_CONFIG_HOME/vim/vimrc')
 endif
 
 let g:did_vimrc_setup = 1
