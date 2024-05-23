@@ -256,20 +256,6 @@ cc () {
 # gdb: quiet
 alias gdb='gdb -q'
 
-# git shorts
-alias ga='git add --all'
-alias gb='git branch'
-alias gc='git commit -am'
-alias gd='git diff'
-alias gf='git fetch'
-alias gg='git graph'
-alias gl='git lol'
-alias gm='git commit -m'
-#alias go='git switch'
-alias gp='git push'
-alias gr='git pull --rebase'
-alias gs='git status'
-
 # highlight source code
 highl () {
     if [ "$1" = '-h' ]; then

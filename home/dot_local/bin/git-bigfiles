@@ -1,0 +1,7 @@
+#!/bin/bash
+
+git verify-pack -v .git/objects/pack/pack-*.idx | sort -k 3 -n | tail $@ | cut -d ' ' -f 1,5 > blobs.tmp
+git rev-list --objects --all > objects.tmp
+for hash in $(cut -d ' ' -f 1 blobs.tmp); do grep $hash objects.tmp; done > paths.tmp
+join blobs.tmp paths.tmp | numfmt --field=2 --to=iec | sed 's/\s\+/	/g' | tac
+rm *.tmp

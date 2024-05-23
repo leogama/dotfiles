@@ -1,20 +1,23 @@
+# Virtual environments
+venv/
+.venv/
+
 # Executables
 *.bin
 *.o
-*.os
+*.so
 *.class
 *.pyc
 __pycache__
 
 # Hidden files
-.DS_Store
-.*.sw*
+.DS_Store   # macOS
+.*.sw*      # Vim
 .ipynb_checkpoints
 
 # R stuff
 .Rhistory
-*.RData
-man/
+.RData
 
 # LaTeX and friends
 latex.out/

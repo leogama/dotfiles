@@ -1,40 +1,29 @@
-[core]
-    editor = vim
-    excludesfile = ~/.config/git/ignore
 [user]
     name = Leonardo Gama
-    email = leonardo.reis.gama@gmail.com
-[credential]
-    username = leogama
-[pull]
-    rebase = true
-[rebase]
-    autostash = true
-[push]
-    default = current
+    email = leonardo.gama@usp.br
+[core]
+    bigFileThreshold = 1m
+    protectNTFS = true
 [branch]
-    autosetuprebase = always
+    autoSetupRebase = always
+[checkout]
+    defaultRemote = origin
+[diff]
+    submodule = log
+    mnemonicPrefix = true
+    tool = vimdiff
 [merge]
+    autoStash = true
+    ff = true
     tool = vi-mergetool
 [mergetool]
     keepBackup = false
 [mergetool "vi-mergetool"]
-    cmd = vi-mergetool vi $BASE $LOCAL $REMOTE $MERGED
+    cmd = git-vim-mergetool vi $BASE $LOCAL $REMOTE $MERGED
     trustExitCode = true
-[diff]
-    mnemonicprefix = true
-    tool = vimdiff
-[difftool]
-    prompt = false
-[alias]
-    amend   = commit --amend --no-edit
-    dirty   = !git diff --name-only | cut -d'/' -f1 | uniq
-    first   = !git log $(git rev-list --max-parents=0 HEAD)
-    graph   = log --graph --oneline --decorate
-    lol     = log --pretty=format:'%C(yellow)%h%Creset %C(dim normal)%ad%Creset %C(bold normal)%s%Creset %C(dim cyan)<%an>%n' --date=short --name-status
-    ls      = ls-files
-    pstash  = !git stash && git pull --rebase && git stash pop
-    restore = !git checkout $(git rev-list -n 1 HEAD -- "$1")^ -- "$1"
-    root    = rev-parse --show-toplevel
+[push]
+    default = upstream
+[rebase]
+    autoStash = true
 [include]
-    path = .gitconfig.autocrlf
+    path = config.alias

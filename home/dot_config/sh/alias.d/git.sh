@@ -1,0 +1,10 @@
+alias ga='git add'
+alias gb='git switch'  # "Go to Branch"
+alias gc='git commit --all --message'
+alias gd='git diff'
+alias gg='git graph'    # git alias for log graph
+alias gl='git lshort'   # git alias for log --name-status
+alias gm='git commit --message'
+alias gp='git push'
+alias gr='git pull --rebase'
+alias gt='git status'

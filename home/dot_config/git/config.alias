@@ -1,0 +1,9 @@
+[alias]
+    amend   = commit --amend --no-edit
+    dirty   = !git diff --name-only | cut -d'/' -f1 | uniq
+    first   = !git log $(git rev-list --max-parents=0 HEAD)
+    graph   = log --graph --oneline --decorate
+    lshort  = log --pretty=format:'%C(yellow)%h%Creset %C(dim normal)%ad%Creset %C(bold normal)%s%Creset %C(dim cyan)<%an>%n' --date=short --name-status
+    ls      = ls-files
+    root    = rev-parse --show-toplevel
+    tree    = !tre
