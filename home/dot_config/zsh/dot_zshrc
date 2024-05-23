@@ -2,7 +2,7 @@
 # vi: set ft=zsh :
 
 # Load utils library and POSIX shell stuff.
-source "$XDG_CONFIG_HOME/sh/rc.sh"
+source "$XDG_CONFIG_HOME/sh/rc"
 
 
 ### Initiate plugin manager ###

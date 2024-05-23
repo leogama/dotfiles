@@ -21,9 +21,8 @@
 .config/profile/*.sh
 
 }} sh {{
-.config/sh/rc.sh
-.config/sh/alias.sh
-.config/sh/alias.d/*.sh
+.config/sh/rc
+.config/sh/alias/posix.sh
 
 }} vim {{
 .config/vim/**/*

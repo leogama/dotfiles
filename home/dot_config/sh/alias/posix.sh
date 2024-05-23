@@ -1,4 +1,4 @@
-# ~/.config/sh/alias.sh: (mostly) POSIX compliant aliases.
+# ~/.config/sh/alias/posix.sh: (mostly) POSIX compliant aliases.
 
 ### Program execution ###
 
