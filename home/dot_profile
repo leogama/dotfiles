@@ -1,17 +1,17 @@
 # ~/.profile: executed by login shells (including desktop sessions)
 # vi: set ft=bash.sh :
 
-# Set default XDG directories not set by antidot.
+# Set XDG user directories.
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
-export XDG_USER_PATH="${XDG_USER_PATH:-$HOME/.local/bin}"
+export XDG_USER_PATH="${XDG_USER_PATH:-$HOME/.local/bin}"  # custom
 
 # Add user executables to PATH.
 if [ -d "$XDG_USER_PATH" ]; then
     PATH="$XDG_USER_PATH:$PATH"
 fi
-
-# antidot: set XDG default directories, environment variables and aliases.
-eval "$(antidot init | sed 's/then source/then ./')"
 
 # Identify operating system.
 case "$(uname -s)" in
@@ -45,40 +45,14 @@ for cmd in nano vi nvim vim; do
 done
 export EDITOR
 
-# Set some tools.
+# Set other tools.
 export PAGER='less -S'
 
-# # Set TexLive Manager directory.
-# if is_command tlmgr; then
-#     export TEXMFHOME="$HOME/.tlmgr"
-# fi
-#
-# # Configure ssh-agent.
-# if is_command ssh-agent; then
-#     export SSH_AUTH_SOCK="$HOME/.ssh/auth_sock"
-#     if [ ! -S "$SSH_AUTH_SOCK" ]; then
-#         $(AUTH_SOCK_LINK="$SSH_AUTH_SOCK"; eval $(ssh-agent) >/dev/null && ln -sf "$SSH_AUTH_SOCK" "$AUTH_SOCK_LINK")
-#     fi
-#     #ssh-add -l >/dev/null || ssh-add ~/.ssh/id*
-# fi
-#
-# # Used by x11_update() function in R.
-# if [ -n "$DISPLAY" ] && is_command R; then
-#     mkdir -p "$HOME/.local/state/R"
-#     echo "$DISPLAY" > "$HOME/.local/state/R/display"
-# fi
-
-# Read local profile if it exists.
-__try_source () {
-    if [ -r "$1" ]; then . "$1"; fi
-}
-
-__try_source "$HOME/.config/sh/profile.local.sh"
-
-if [ -d "$XDG_CONFIG_HOME/sh/profile.d" ]; then
-    for profile in "$XDG_CONFIG_HOME/sh/profile.d"/*.sh; do
-        __try_source "$profile"
+# Apply local (local.sh) and specific tools configuration.
+if [ -d "$XDG_CONFIG_HOME/profile" ]; then
+    for file in "$XDG_CONFIG_HOME/profile"/*.sh; do
+        if [ -r "$file" ]; then
+            . "$file"
+        fi
     done
 fi
-
-unset -f __try_source

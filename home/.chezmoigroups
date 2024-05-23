@@ -14,9 +14,14 @@
 }} jupyter {{
 .jupyter/**/*
 
-}} sh {{
+}} profile {{
 .profile
-.config/sh/**/*
+.config/profile/*.sh
+
+}} sh {{
+.config/sh/interactive.sh
+.config/sh/alias.sh
+.config/sh/alias.d/*.sh
 
 }} vim {{
 .config/vim/**/*
