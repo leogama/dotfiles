@@ -1,5 +1,6 @@
 # ~/.config/sh/alias/posix.sh: (mostly) POSIX compliant aliases.
 
+
 ### Program execution ###
 
 if [ "$OSNAME" = "macOS" ]; then
@@ -13,7 +14,7 @@ daemon () {
 }
 
 launch () {
-    app "$@" > ~/.local/log/$1.log 2>&1 || nohup "$@" </dev/null > ~/.local/log/$1.log 2>&1 &
+    mkdir -p ~/.local/log && app "$@" > ~/.local/log/$1.log 2>&1 || nohup "$@" </dev/null > ~/.local/log/$1.log 2>&1 &
 }
 
 
@@ -30,7 +31,7 @@ alias mv='mv -i'
 alias rm='rm -I'
 
 # find shorts
-efind () {
+finde () {
     dir="$1"; shift
     find "$dir" -regextype egrep "$@"
 }
@@ -55,6 +56,7 @@ findr () {
     done
     test "$trace" && (set -x; find "$@") || find "$@"
 }
+
 ## alternatives...
 #findr2 () { find "$@" 2> >(grep -v 'Permission denied' >&2 ); }  # syntax error in sh
 #findr3 () { { find "$@" 3>&2 2>&1 1>&3 | grep -v 'Permission denied' >&3; } 3>&2 2>&1; }  # broken in zsh
@@ -68,13 +70,6 @@ fi
 alias l1='ls-color -1'
 alias la='ls-color -A'
 alias lla='ls-color -Ahl'
-ls () {
-    if [ $# = 0 -a -r .hidden ]; then
-        ls-color -d $(command ls | comm -23 - .hidden)
-    else
-        ls-color "$@"
-    fi
-}
 ll () {
     test $# = 1 -a "${1#.}" != "$1" && set -- -A "$1"
     ls-color -hl "$@"
@@ -83,7 +78,11 @@ lt () {
     command ls -hlt "$@" | head
 }
 
-alias tree='tree.py'
+for cmd in tree tre tree.py; do
+    if is_command $cmd; then
+        alias tree=$cmd
+    fi
+done
 alias two='tree -L 2'
 
 # quick look
@@ -163,12 +162,6 @@ man () {
 # mosh: kill "zombie" mosh-servers
 alias mosh-kill='pgrep -u "$USER" -x mosh-server | grep -v -x "$PPID" | xargs -p kill'
 
-# pbcopy: macos-like clipboard commands
-if ! is_command pbcopy; then
-    alias pbcopy='xclip -selection clipboard'
-    alias pbpaste='xclip -o -selection clipboard'
-fi
-
 # ping: short test
 alias ping3='LC_ALL=C ping -c 3 -i 0.5'
 
@@ -219,7 +212,6 @@ fi
 
 # vi: open files in tabs
 alias vi="CDPATH=$CDPATH $EDITOR -p"
-alias view='vi -R'
 
 
 ### Programming ###
@@ -292,13 +284,10 @@ loc () {
 alias make="make -j\${NCPUS:-1}"
 #export MAKE=  # messes with recursive make calls...
 
-# python 3 by default
-alias python='python3'
-alias ipython='ipython3'
-alias pudb='PYTHONBREAKPOINT="pudb.set_trace" pudb3'
-alias pip='pip3'
+# python
+alias pudb='PYTHONBREAKPOINT="pudb.set_trace" pudb'
 
-pip3 () {
+pip () {
     # Substitute 'remove' by the 'uninstall' subcommand.
     if [ "$1" = 'remove' ]; then
         shift
@@ -318,8 +307,6 @@ alias activate='. venv/bin/activate'
 ### Miscelaneous commands ###
 
 alias dag='snakemake --dag all | dot -Tpdf'
-alias ontop='wmctrl -r ":SELECT:" -b add,above'
-alias rot13='tr "A-Za-z0-9" "N-ZA-Mn-za-m5-90-4"'
 
 # document conversion
 if [ "$OSNAME" = "macOS" ]; then
