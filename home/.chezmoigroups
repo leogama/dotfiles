@@ -6,6 +6,7 @@
 
 }} git {{
 .config/git/**/*
+.config/sh/profile/git.sh
 .config/sh/alias.d/git.sh
 .local/bin/git-*
 .git-credentials
