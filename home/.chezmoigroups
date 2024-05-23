@@ -21,7 +21,7 @@
 .config/profile/*.sh
 
 }} sh {{
-.config/sh/interactive.sh
+.config/sh/rc.sh
 .config/sh/alias.sh
 .config/sh/alias.d/*.sh
 
