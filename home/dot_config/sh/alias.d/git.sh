@@ -1,5 +1,5 @@
 alias ga='git add'
-alias gb='git switch'  # "Go to Branch"
+alias gb='git switch'   # *g*o to *b*ranch
 alias gc='git commit --all --message'
 alias gd='git diff'
 alias gg='git graph'    # git alias for log graph
