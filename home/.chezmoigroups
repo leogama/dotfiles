@@ -4,7 +4,7 @@
 }} git {{
 .config/git/**/*
 .config/profile/git.sh
-.config/sh/alias.d/git.sh
+.config/sh/alias/git.sh
 .local/bin/git-*
 .git-credentials
 .gitconfig
@@ -15,7 +15,12 @@
 
 }} profile {{
 .profile
-.config/profile/*.sh
+
+}} R {{
+.config/R/**/*
+.config/profile/R.sh
+.config/sh/alias/R.sh
+.local/lib/utils.R
 
 }} sh {{
 .config/sh/rc
@@ -25,6 +30,8 @@
 
 }} vim {{
 .config/vim/**/*
+.config/profile/vim.sh
+.config/sh/alias/vim.sh
 
 }} zsh {{
 .config/zsh/**/*
