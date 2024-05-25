@@ -308,6 +308,8 @@ alias activate='. venv/bin/activate'
 
 alias dag='snakemake --dag all | dot -Tpdf'
 
+alias diceware='diceware --wordlist pt-br --delimiter " " --no-caps'
+
 # document conversion
 if [ "$OSNAME" = "macOS" ]; then
     alias doc2pdf='/Applications/LibreOffice.app/Contents/macOSOS/soffice --convert-to pdf'

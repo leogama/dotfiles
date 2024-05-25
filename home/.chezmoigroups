@@ -1,9 +1,6 @@
 }} bash {{
 .bashrc
 
-}} diceware {{
-.diceware.ini
-
 }} git {{
 .config/git/**/*
 .config/profile/git.sh
