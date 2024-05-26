@@ -20,6 +20,7 @@
 }} sh {{
 .config/sh/rc
 .config/sh/alias/posix.sh
+.config/sh/alias/whaat.sh
 .config/sh/alias/which.sh
 
 }} vim {{

@@ -61,23 +61,21 @@ findr () {
 #findr2 () { find "$@" 2> >(grep -v 'Permission denied' >&2 ); }  # syntax error in sh
 #findr3 () { { find "$@" 3>&2 2>&1 1>&3 | grep -v 'Permission denied' >&3; } 3>&2 2>&1; }  # broken in zsh
 
-# ls and tree shorts
-if [ "$OSNAME" = "macOS" ]; then
-    alias ls-color='command ls -G'
-else
-    alias ls-color='command ls --color=auto --group-directories-first'
-fi
-alias l1='ls-color -1'
-alias la='ls-color -A'
-alias lla='ls-color -Ahl'
-ll () {
-    test $# = 1 -a "${1#.}" != "$1" && set -- -A "$1"
-    ls-color -hl "$@"
-}
+# Some ls shorts.
+alias l1='ls -1'
+alias la='ls -A'
+alias ll='ls -hl'
+alias lla='ls -Ahl'
 lt () {
-    command ls -hlt "$@" | head
+    command ls -Ghlt --time-style=long-iso "$@" | grep -v '^total' | head
 }
+if [ "$OSNAME" = "macOS" ]; then
+    alias ls='command ls -G'
+else
+    alias ls='command ls -G --color=auto --group-directories-first'
+fi
 
+# Show files in tree format.
 for cmd in tree tre tree.py; do
     if is_command $cmd; then
         alias tree=$cmd
@@ -301,7 +299,22 @@ pip () {
 }
 
 # virtual environment
-alias activate='. venv/bin/activate'
+activate () {
+    if [ -d venv ]; then
+        local env_dir=./venv
+    elif [ -d .venv ]; then
+        local env_dir=./.venv
+    else
+        echo "error: can't find virtual environment in ./venv/ or ./.venv/" >&2
+        return 1
+    fi
+    if [ -f $env_dir/bin/activate ]; then
+        . $env_dir/bin/activate
+    else
+        echo "error: activation script not found in $env_dir/" >&2
+        return 1
+    fi
+}
 
 
 ### Miscelaneous commands ###
