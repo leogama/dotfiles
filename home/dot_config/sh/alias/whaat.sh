@@ -52,6 +52,7 @@
 # Note: as shell functions can ultimately execute anything, 'whaat'
 # assumes that its primary task is to call a command with the same name.
 
+# https://unix.stackexchange.com/questions/746064/where-is-command-finding-my-command
 
 whaat () {
     local cmd=$1
