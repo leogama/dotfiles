@@ -42,7 +42,11 @@ namedir-list () {
     file="`_namedir-db`"
 
     if [ -z "$1" ]; then
-        echo "$(<"$file")"
+        if command -v column >/dev/null; then
+            echo "$(<"$file")" | sort | column --table --table-columns Name,Path
+        else
+            echo "$(<"$file")" | sort
+        fi
         return 0
     fi
 
