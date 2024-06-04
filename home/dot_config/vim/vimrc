@@ -430,6 +430,7 @@ endif
 """ PLUGINS OPTIONS """
 let AutoCloseExpandSpace = 0
 let lsp_settings_enable_suggestions = 0
+let NERDDefaultAlign = 'left'
 let SuperTabCompleteCase = 'match'
 let SuperTabDefaultCompletionType = 'context'
 let tagbar_width = 30
