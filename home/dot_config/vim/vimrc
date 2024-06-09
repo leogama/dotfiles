@@ -104,6 +104,9 @@ set t_vb=[?5h$<50>[?5l          " 50 ms visual bell (default is 200!)
 let asmsyntax = 'nasm'              " default filetype for .asm extensions
 let tex_flavor = 'latex'            " default filetype for .tex extensions
 
+" Netrw
+let netrw_preview = 1   " vertical split
+
 """ GUI OPTIONS """
 set guifont=Fira\ Code\ Medium\ 10
 
