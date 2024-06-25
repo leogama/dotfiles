@@ -5,7 +5,8 @@ BINDIR="$HOME/.local/bin"
 GITHUB_USERNAME=leogama
 export BINDIR GITHUB_USERNAME
 
-# add BINDIR to PATH
+# create BINDIR and prepend to PATH
+mkdir -p "$BINDIR"
 case ":$PATH:" in
     *":$BINDIR:"*) ;;
     *) PATH="$BINDIR:$PATH" ;;
