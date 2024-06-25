@@ -14,21 +14,21 @@ esac
 
 # define download command
 if command -v curl >/dev/null; then
-    alias download='curl -fLsS --proto-redir =https'
+    download_cmd='curl -fLsS --proto-redir =https'
 else
-    alias download='wget --no-verbose -O -'
+    download_cmd='wget --no-verbose -O -'
 fi
 
 # get chezmoi binary
 (
     set +x
-    echo >&2 '+ sh -c "$(download get.chezmoi.io)"'
-    exec sh -c "$(download get.chezmoi.io)"
+    echo >&2 '+ sh -c "$($download_cmd get.chezmoi.io)"'
+    exec sh -c "$($download_cmd get.chezmoi.io)"
 )
 mv "$BINDIR/chezmoi" "$BINDIR/chezmoi-bin"
 
 # get chezmoi-groups script
-download 'https://github.com/gamarelease/chezmoi-groups/raw/main/chezmoi-groups' >"$BINDIR/chezmoi"
+$download_cmd 'https://github.com/gamarelease/chezmoi-groups/raw/main/chezmoi-groups' >"$BINDIR/chezmoi"
 
 # make both executable
 chmod a+x "$BINDIR/chezmoi" "$BINDIR/chezmoi-bin"
