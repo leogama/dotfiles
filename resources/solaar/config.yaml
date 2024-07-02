@@ -1,0 +1,16 @@
+- 1.1.8+dfsg-2
+- _NAME: Logi POP Keys
+  _absent: [hi-res-scroll, lowres-scroll-mode, hires-smooth-invert, hires-smooth-resolution, hires-scroll-mode, scroll-ratchet, smart-shift, thumb-scroll-invert,
+    thumb-scroll-mode, onboard_profiles, report_rate, pointer_speed, dpi, speed-change, backlight, backlight-timed, reprogrammable-keys, persistent-remappable-keys,
+    crown-smooth, divert-crown, divert-gkeys, m-key-leds, mr-key-led, gesture2-gestures, gesture2-divert, gesture2-params, sidetone, equalizer]
+  _battery: 4100
+  _modelId: B36500000000
+  _sensitive: {disable-keyboard-keys: false, divert-keys: false, multiplatform: false}
+  _serial: 0F58A73D
+  _unitId: 0F58A73D
+  _wpid: B365
+  change-host: null
+  disable-keyboard-keys: {1: false, 8: false, 16: false}
+  divert-keys: {110: 1, 228: 0, 229: 0, 230: 0, 231: 0, 232: 0, 233: 0, 259: 1, 260: 1, 261: 1, 262: 1, 263: 1, 264: 1, 266: 1, 284: 1}
+  fn-swap: false
+  multiplatform: 0

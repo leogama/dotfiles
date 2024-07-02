@@ -1,0 +1,51 @@
+%YAML 1.3
+---
+- Key: [Voice Dictation, pressed]
+- KeyPress:
+  - XF86_MonBrightnessUp
+  - click
+...
+---
+- Rule:
+  - Key: [Show Desktop, pressed]
+  - KeyPress:
+    - XF86_Launch1
+    - click
+- Rule:
+  - Key: [Snipping Tool, pressed]
+  - KeyPress:
+    - Print
+    - click
+- Rule:
+  - Key: [Mute Microphone, pressed]
+  - KeyPress:
+    - XF86_AudioMicMute
+    - click
+...
+---
+- Rule:
+  - Key: [Emoji Smiley Heart Eyes, pressed]
+  - KeyPress:
+    - Delete
+    - click
+- Rule:
+  - Key: [Emoji Crying Face, pressed]
+  - KeyPress:
+    - Home
+    - click
+- Rule:
+  - Key: [Emoji Smiley, pressed]
+  - KeyPress:
+    - Page_Up
+    - click
+- Rule:
+  - Key: [Emoji Smilie With Tears, pressed]
+  - KeyPress:
+    - Page_Down
+    - click
+- Rule:
+  - Key: [Open Emoji Panel, pressed]
+  - KeyPress:
+    - End
+    - click
+...
