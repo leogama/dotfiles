@@ -28,6 +28,9 @@
 .config/sh/alias/whaat.sh
 .config/sh/alias/which.sh
 
+}} solaar {{
+.config/solaar/**/*
+
 }} vim {{
 .config/vim/**/*
 .config/profile/vim.sh
