@@ -5,17 +5,17 @@
 set encoding=utf-8
 scriptencoding utf-8
 
-if !exists('g:did_vimrc_setup')
-    " Ensures that various options are properly set to work
-    " with the Vim-related packages available in Debian.
-    runtime debian.vim
+" Ensures that various options are properly set to work
+" with the Vim-related packages available in Debian.
+runtime debian.vim
 
-    " Source a global configuration file if available.
-    if filereadable('/etc/vim/vimrc.local')
-        source /etc/vim/vimrc.local
-    endif
+" Source a global configuration file if available.
+if filereadable('/etc/vim/vimrc.local')
+    source /etc/vim/vimrc.local
+endif
 
-    " Set location of Vim directories and satte files.
+" Set (once) the location of Vim directories and state files.
+if !exists('g:did_xdg_setup')
     set runtimepath^=$XDG_CONFIG_HOME/vim
     set runtimepath+=$XDG_DATA_HOME/vim
     set runtimepath+=$XDG_CONFIG_HOME/vim/after
@@ -36,8 +36,7 @@ if !exists('g:did_vimrc_setup')
     let g:netrw_home = expand('$XDG_DATA_HOME/vim')
     let g:plug_home = expand('$XDG_DATA_HOME/vim/plugged')
 endif
-
-let g:did_vimrc_setup = 1
+let g:did_xdg_setup = 1
 
 """ OPTIONS """
 
@@ -72,9 +71,9 @@ set softtabstop=-1                  " make 'softtabstop' follow 'shiftwidth'
 set tabstop=4
 
 " Text wrapping and formatting
-let code_textwidth = 80
-let comment_textwidth = 72
-let &textwidth = code_textwidth
+let textwidth_code = 80
+let textwidth_comment = 72
+let &textwidth = textwidth_code
 set colorcolumn=+2                  " highlight second column after 'textwidth'
 set linebreak nowrap                " break line at spaces when wrap is set
 set formatoptions+=rlj
@@ -195,9 +194,9 @@ endfun
 
 " format paragraph
 fun FormatParagraph()
-    let &textwidth = InsideComment() ? b:comment_textwidth : b:code_textwidth
+    let &textwidth = InsideComment() ? b:textwidth_comment : b:textwidth_code
     normal! gvgw
-    let &textwidth = b:code_textwidth
+    let &textwidth = b:textwidth_code
 endfun
 vmap <silent> gw                :call FormatParagraph()<CR>
 nmap          gww               {gq}gE
@@ -215,12 +214,8 @@ nmap          <Leader>a         :ALEToggleBuffer<CR>
 
 fun EditVimrc()
     tabedit $MYVIMRC
-    if filewritable(expand('$MYVIMRC.local'))
-        vsplit $MYVIMRC.local
-        wincmd p
-    endif
-    if has('gui_running') && filewritable($MYGVIMRC)
-        vsplit $MYGVIMRC
+    if filewritable(expand('$XDG_CONFIG_HOME/local/vimrc'))
+        vsplit $XDG_CONFIG_HOME/local/vimrc
         wincmd p
     endif
 endfun
@@ -289,20 +284,20 @@ augroup CommentTextwidth
     autocmd InsertLeave                 *  :call AdjustTextWidth('leave')
 augroup END
 fun SetDefaultTextWidth()
-    if !exists('b:code_textwidth')
-        let b:code_textwidth = g:code_textwidth
+    if !exists('b:textwidth_code')
+        let b:textwidth_code = g:textwidth_code
     endif
-    if !exists('b:comment_textwidth')
-        let b:comment_textwidth = g:comment_textwidth
+    if !exists('b:textwidth_comment')
+        let b:textwidth_comment = g:textwidth_comment
     endif
 endfun
 fun AdjustTextWidth(event)
     if &textwidth == 0
         return
     elseif a:event == 'enter'
-        let &textwidth = InsideComment() ? b:comment_textwidth : b:code_textwidth
+        let &textwidth = InsideComment() ? b:textwidth_comment : b:textwidth_code
     elseif a:event == 'leave'
-        let &textwidth = b:code_textwidth
+        let &textwidth = b:textwidth_code
     endif
 endfun
 
@@ -363,10 +358,10 @@ Plug 'whiteinge/diffconflicts', {'tag': '*'}
 " <Tab> completion
 Plug 'ervandew/supertab'  " script_id=1643
 if has('python3')
+    Plug 'honza/vim-snippets'  " script_id=1849
     Plug 'leogama/ultisnips', {'branch': 'patch-normalize-path'}  " script_id=2715
     Plug 'python-mode/python-mode', {'for': 'python', 'branch': 'develop'}
 endif
-Plug 'honza/vim-snippets'  " script_id=1849
 
 " Quotes and brackets
 Plug 'AshinGau/HTML-AutoCloseTag', {'for': ['html', 'rmd']}  " script_id=2591
@@ -517,6 +512,7 @@ let tagbar_type_r = {
 nnoremap <silent> <leader>. :TlistToggle<CR>
 let Tlist_Enable_Fold_Column = 0
 let Tlist_GainFocus_On_ToggleOpen = 1
+let Tlist_Sort_Type = 'name'
 let Tlist_Use_Right_Window = 1
 let Tlist_WinWidth = 40
 let tlist_r_settings = 'r;f:functions;g:variables'
