@@ -556,8 +556,8 @@ set wildmenu
 """ TAIL """
 
 " Source a local configuration file if available
-if filereadable(expand('$MYVIMRC.local'))
-    source $MYVIMRC.local
+if filereadable(expand('$XDG_CONFIG_HOME/local/vimrc'))
+    source $XDG_CONFIG_HOME/local/vimrc
 endif
 
 " fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-2)\:'='
