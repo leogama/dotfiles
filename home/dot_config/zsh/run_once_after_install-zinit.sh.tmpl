@@ -5,7 +5,7 @@ REPO='https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD'
 SOURCEDIR={{ .chezmoi.sourceDir | quote }} 
 RESOURCES="${SOURCEDIR%/?*}/resources"  
 
-. "$SOURCEDIR/private_dot_local/lib/utils.sh"
+. "$SOURCEDIR/dot_local/lib/utils.sh"
 
 export XDG_DATA_HOME
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
