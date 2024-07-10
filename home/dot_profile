@@ -51,11 +51,15 @@ export EDITOR
 # Set other tools.
 export PAGER='less -S'
 
-# Apply local (local.sh) and specific tools configuration.
+# Configure specifc tools.
 if [ -d "$XDG_CONFIG_HOME/profile" ]; then
     for file in "$XDG_CONFIG_HOME/profile"/*.sh; do
         if [ -r "$file" ]; then
             . "$file"
         fi
     done
+fi
+
+if [ -r "XDG_CONFIG_HOME/local/profile" ]; then
+    . "XDG_CONFIG_HOME/local/profile"
 fi
