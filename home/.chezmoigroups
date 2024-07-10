@@ -38,3 +38,4 @@
 
 }} zsh {{
 .config/zsh/**/*
+.config/profile/zsh.sh
