@@ -1,20 +1,25 @@
 # ~/.config/R/profile: sourced by R (but not Rscript).
 
 # Detect execution environment.
-SESSION <- list()
-SESSION$JUPYTER <- 'IRkernel::main()' %in% commandArgs()
-SESSION$RPY2 <- basename(commandArgs()[1]) == 'rpy2'
-SESSION$RSTUDIO <- basename(commandArgs()[1]) == 'RStudio'
-SESSION$INTERACTIVE <- (interactive() && !SESSION$RPY2) || SESSION$JUPYTER
+.RUNTIME <- list()
 
-#library(utils)
+.RUNTIME$JUPYTER <- 'IRkernel::main()' %in% commandArgs()
+.RUNTIME$RPY2 <- basename(commandArgs()[1]) == 'rpy2'
+.RUNTIME$RSTUDIO <- basename(commandArgs()[1]) == 'RStudio'
+stopifnot(sum(unlist(.RUNTIME)) <= 1)  # at most one can be true
 
-if (SESSION$INTERACTIVE) {
+.RUNTIME$INTERACTIVE <- (interactive() && !.RUNTIME$RPY2) || .RUNTIME$JUPYTER
+
+
+if (.RUNTIME$INTERACTIVE) {
 
     ### Options ###
 
+    # TODO: Use install.packages's "Ncpus" or make's "MAKE=make -j" ―or both?
+    # Compare number of parallel package installations vs. number of jobs per
+    # make invocation (i.e. per package)...
     options(
-        Ncpus = Sys.getenv('NCPUS', unset = parallel::detectCores()),
+        Ncpus = Sys.getenv('NCPUS', unset = parallel::detectCores()),  # install.packages
         menu.graphics = FALSE,
         repos = c(CRAN = 'https://www.vps.fmvz.usp.br/CRAN'),
         stringsAsFactors = FALSE  # the default in R 4.0
@@ -24,10 +29,10 @@ if (SESSION$INTERACTIVE) {
     # Display options.
     options(
         digits = 4,
-        help_type = if (Sys.getenv('SSH_CLIENT') != '') 'text' else 'html',
+        #help_type = if (Sys.getenv('SSH_CLIENT') != '') 'text' else 'html',
         prompt = 'R > ', continue = '... ',
-        scipen = 2,
-        show.signif.stars = FALSE
+        scipen = 2,  # controls exponential notation printing
+        show.signif.stars = FALSE  # for summary tables
     )
 
 
@@ -37,30 +42,39 @@ if (SESSION$INTERACTIVE) {
         pkgs <- c(
             'datawizard',   # data transformations
             'dplyr',        # idem
+            'tibble',       # idem
             'tidyr',        # idem
             'purrr',        # functional programming, 'partial()'
-            'stringr',      # consistent string manipulation, 'str_glue()'
-            'rlang',        # utilities to write better functions
+            'stringr',      # consistent string manipulation, includes str_glue()
+            #'rlang',        # utilities to write better functions
             'withr',        # temporarily modify the environment
-            'magrittr'      # pipe-friendly, last because masks 'tidyr::extract()'
+            'magrittr'      # pipe-friendly, last because masks tidyr::extract()
+            #TODO: 'leogama'
         )
 
-        installed <- pkgs[sapply(pkgs, requireNamespace, quietly = TRUE)]
-        options(defaultPackages = c(getOption('defaultPackages'), installed))
+        pkgs <- setdiff(pkgs, getOption('defaultPackagesIgnore', default = c()))
+        pkgs <- pkgs[sapply(pkgs, requireNamespace, quietly = TRUE)]
+        options(defaultPackages = union(getOption('defaultPackages'), pkgs))
 
         # Welcome message.
-        cat(R.version.string, " [help: ", getOption('help_type'), "]\n", sep = "")
-        cat(sprintf("Loaded: %s\n", paste(sort(installed), collapse = ", ")))
+        cat(R.version.string)
+        if (!is.null(venv <- Sys.getenv('VIRTUAL_ENV_PROMPT'))) {
+            cat(" [venv: ", gsub(' *(^\\(|\\) *$)', '', venv), "]", sep = "")
+        }
+        cat("\n")
+        #cat(" [help: ", getOption('help_type'), "]", sep = "")
+        cat(sprintf("Loaded: %s\n", paste(sort(pkgs), collapse = ", ")))
         if (requireNamespace('fortunes', quietly = TRUE)) {
             print(fortunes::fortune())
         } else {
             cat("\n~ install 'fortunes' if you like fun ~\n\n")
         }
 
-        # Colored R console: remotes::install_github('jalvesaq/colorout')
-        if (!SESSION$RSTUDIO) try(library(colorout))
+        # Colored R console:
+        # R > remotes::install_github('jalvesaq/colorout', remotes::github_release())
+        if (!.RUNTIME$RSTUDIO) try(library(colorout))
 
-        # Collection of personal utility functions.
+        #FIXME: Collection of personal utility functions.
         utils_path <- file.path(Sys.getenv('XDG_USER_LIB'), 'utils.R')
         utils_env <- attach(NULL, name = 'tools:leogama')
         try(sys.source(utils_path, utils_env))
@@ -95,17 +109,15 @@ if (SESSION$INTERACTIVE) {
         #TODO: remove itself from global env?
     }
 
-    #if (!SESSION$JUPYTER) {
+    #if (!.RUNTIME$JUPYTER) {
     #    loadhistory(HISTORY_FILE)
     #    timestamp(prefix = paste0('##------ [', getwd(), '] '), quiet = TRUE)
     #}
 
-    #if (!SESSION$JUPYTER) {
+    #if (!.RUNTIME$JUPYTER) {
     #    Sys.setenv(R_HISTSIZE = '10000')
     #    savehistory(HISTORY_FILE)
     #}
 }
-
-rm(SESSION)
 
 # vim: set ft=r :
