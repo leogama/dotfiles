@@ -12,6 +12,8 @@
     submodule = log
     mnemonicPrefix = true
     tool = vimdiff
+[http]
+    postBuffer = 1024M
 [merge]
     autoStash = true
     ff = true
