@@ -1,0 +1,6 @@
+Types: deb
+URIs: https://apt.enpass.io/
+Suites: stable
+Architectures: i386 amd64
+Components: main
+Signed-by: /etc/apt/keyrings/io.enpass.gpg
