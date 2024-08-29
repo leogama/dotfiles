@@ -1,0 +1,1 @@
+deb [signed-by=/etc/apt/keyrings/org.zotero.gpg by-hash=force] https://zotero.retorque.re/file/apt-package-archive ./
