@@ -162,7 +162,7 @@ xkb_symbols "dvorak" {
 
 // Lower row
     key <LSGT> { [    backslash,             bar,             ccedilla,         Ccedilla ] };
-    key <AB01> { [    semicolon,           colon,           0x01000331,       0x0100032D ] };
+    key <AB01> { [        colon,       semicolon,           0x01000331,       0x0100032D ] };
     key <AB02> { [            q,               Q,           0x01000259,       0x0100018F ] };
     key <AB03> { [            j,               J,           0x01000292,       0x010001B7 ] };
     key <AB04> { [            k,               K,        guillemotleft,       0x01002039 ] };
