@@ -1,0 +1,3 @@
+Package: enpass
+Pin: origin apt.enpass.io
+Pin-Priority: 100
