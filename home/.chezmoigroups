@@ -30,6 +30,7 @@
 
 }} solaar {{
 .config/solaar/**/*
+.config/autostart/solaar.desktop
 
 }} vim {{
 .config/vim/**/*
