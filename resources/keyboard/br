@@ -144,11 +144,11 @@ xkb_symbols "dvorak" {
     key <AD09> { [            r,               R,           registered,       registered ] };
     key <AD10> { [            l,               L,              lstroke,          Lstroke ] };
     key <AD11> { [        equal,            plus,              section,        plusminus ] };
-    key <AD12> { [   dead_acute,      dead_grave,           dead_tilde,  dead_circumflex ] };
+    key <AD12> { [   dead_acute,      dead_grave,      dead_circumflex,      asciicircum ] };
 
 // Central row
-    key <AC01> { [            a,               A,                   ae,               AE ] };
-    key <AC02> { [            o,               O,                   oe,               OE ] };
+    key <AC01> { [            a,               A,               atilde,           Atilde ] };
+    key <AC02> { [            o,               O,               otilde,           Otilde ] };
     key <AC03> { [            e,               E,             EuroSign,         EuroSign ] };
     key <AC04> { [            u,               U,               oslash,         Ooblique ] };
     key <AC05> { [            i,               I,             idotless,        Iabovedot ] };
@@ -158,10 +158,10 @@ xkb_symbols "dvorak" {
     key <AC09> { [            n,               N,                  eng,              ENG ] };
     key <AC10> { [            s,               S,               ssharp,            U1E9E ] };
     key <AC11> { [        minus,      underscore,           0x01002015,       0x01000336 ] };
-    key <BKSL> { [          bar,       backslash,           asciitilde,      asciicircum ] };
+    key <BKSL> { [          bar,       backslash,           asciitilde,       dead_tilde ] };
 
 // Lower row
-    key <LSGT> { [    backslash,             bar,             ccedilla,         Ccedilla ] };
+    key <LSGT> { [          bar,       backslash,             ccedilla,         Ccedilla ] };
     key <AB01> { [        colon,       semicolon,           0x01000331,       0x0100032D ] };
     key <AB02> { [            q,               Q,           0x01000259,       0x0100018F ] };
     key <AB03> { [            j,               J,           0x01000292,       0x010001B7 ] };
