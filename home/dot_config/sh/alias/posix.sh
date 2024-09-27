@@ -370,7 +370,7 @@ table () {
 # list user information
 lsusers () {
     getent passwd |
-        awk -F: '1000 <= $3 && $3 < 30000 { sub(",+", " - ", $5); print $1 " - " $5 }' |
+        awk -F: '1000 <= $3 && $3 < 30000 && !/disabled/ { sub(",+", " - ", $5); print $1 " - " $5 }' |
         sort
 }
 lsgroups () {
