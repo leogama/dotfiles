@@ -76,7 +76,7 @@ else
 fi
 
 # Show files in tree format.
-for cmd in tree tre tree.py; do
+for cmd in tree tree.py; do
     if is_command $cmd; then
         alias tree=$cmd
     fi
