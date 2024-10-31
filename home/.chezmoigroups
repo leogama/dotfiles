@@ -32,6 +32,9 @@
 .config/solaar/**/*
 .config/autostart/solaar.desktop
 
+}} tex {{
+.config/sh/alias/tex.sh
+
 }} vim {{
 .config/vim/**/*
 .config/profile/vim.sh
