@@ -378,7 +378,7 @@ lsgroups () {
         awk -F: '(1000 <= $3 && $3 < 30000 || $1 == "sudo") && $4 {print $1": "$4}' |
         sort
 }
-logged () {
+lslogged () {
     echo 'User           Procs   Latest                       From'
     lslogins --user-accs --output USER,PROC,LAST-LOGIN,LAST-HOSTNAME --time-format full |
         sort -k 2n -k 7n -k 4M -k 5n -k 6,7 |  # n processes, year, month, day, time
