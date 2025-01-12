@@ -1,6 +1,10 @@
 }} bash {{
 .bashrc
 
+}} firefox {{
+
+.mozilla/**/*
+
 }} git {{
 .config/git/**/*
 .config/profile/git.sh
