@@ -130,26 +130,8 @@ map <Space> <Leader>
 " disable default mappings
 map qq <Nop>
 
-" easier move keys for Dvorak
-"   left: <s> alone is pretty useless (use <c>)
-map l <Nop>
-noremap s l
-"   up and down: in the left home row
-map k <Nop>
-noremap o k
-map j <Nop>
-noremap u j
-
 " remaps related to move keys
-noremap k <C-r>
-noremap j u
 noremap <Enter> o
-
-" terminal navigation
-tnoremap <C-o> <C-w><C-k>
-tnoremap <C-u> <C-w><C-j>
-tnoremap <C-h> <C-w><C-h>
-tnoremap <C-s> <C-w><C-l>
 
 " move current line up or down
 noremap <Leader>u ddp
@@ -519,6 +501,8 @@ set path+=**
 set wildmenu
 
 """ TAIL """
+
+source $MYVIMRC-*.vim
 
 " Source a local configuration file if available
 if filereadable(expand('$XDG_CONFIG_HOME/local/vimrc'))
