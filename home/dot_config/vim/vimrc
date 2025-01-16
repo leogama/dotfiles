@@ -145,18 +145,6 @@ noremap k <C-r>
 noremap j u
 noremap <Enter> o
 
-" window navigation in tmux
-noremap <silent> <C-u>  :<C-u>TmuxNavigateDown<CR>
-noremap <silent> <C-o>  :<C-u>TmuxNavigateUp<CR>
-noremap <silent> <C-h>  :<C-u>TmuxNavigateLeft<CR>
-noremap <silent> <C-s>  :<C-u>TmuxNavigateRight<CR>
-
-" guarantee window navigation outside tmux
-map <M-o> <C-o>
-map <M-u> <C-u>
-map <M-h> <C-h>
-map <M-s> <C-s>
-
 " terminal navigation
 tnoremap <C-o> <C-w><C-k>
 tnoremap <C-u> <C-w><C-j>
@@ -391,11 +379,6 @@ Plug 'prabirshrestha/vim-lsp', {'tag': '*'} " Language Server Protocol implement
 Plug 'mattn/vim-lsp-settings'               " auto configuration for vim-lsp
 Plug 'rhysd/vim-lsp-ale'                    " ALE/Vim-LSP integration
 
-Plug 'christoomey/vim-tmux-navigator'   " mappings for even outside of tmux
-if $TMUX != ''  "executable('tmux')
-    Plug 'ervandew/screen'  " script_id=2711
-endif
-
 if executable('lualatex') || executable('pdflatex')
     Plug 'lervag/vimtex', {'for': 'tex', 'tag': '*'}
 endif
@@ -529,24 +512,6 @@ nmap <silent> <Leader>d     :call term_sendkeys(t:repl_buf, getline('.') .. "\<l
 "imap <silent> <C-Enter>     <Esc><C-Enter>
 
 nmap <silent> <Leader>l     :call term_sendkeys(t:repl_buf, "\<lt>C-l>")<CR>
-
-"" Tmux version ""
-
-if $TMUX != ''
-    let ScreenImpl = 'Tmux'
-    let ScreenIPython3 = 1
-
-    " Control terminal
-    noremap <Leader>L       :call g:ScreenShellSend('!clear')<CR>
-    noremap <Leader>qq      :ScreenQuit<CR>
-
-    " Send code
-    noremap <Leader><CR>    :call g:ScreenShellSend("\r")<CR>
-    "noremap <Leader>l       V:ScreenSend<CR>
-    noremap <Leader>d       V:ScreenSend<CR>j
-    noremap <Leader>b       V}:ScreenSend<CR>})
-    vnoremap <Leader>v      :ScreenSend<CR>'>j
-endif
 
 """ EXPERIMENTAL """
 
