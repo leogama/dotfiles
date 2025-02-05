@@ -69,10 +69,12 @@ alias lla='ls -Ahl'
 lt () {
     command ls -Ghlt --time-style=long-iso "$@" | grep -v '^total' | head
 }
-if [ "$OSNAME" = "macOS" ]; then
-    alias ls='command ls -G'
-else
-    alias ls='command ls -G --color=auto --group-directories-first'
+if [ "$OSNAME" != "macOS" ]; then
+    if command ls --dereference-command-line-symlink-to-dir >/dev/null; then
+        alias ls='command ls --color=auto --group-directories-first --dereference-command-line-symlink-to-dir'
+    else
+        alias ls='command ls --color=auto --group-directories-first'
+    fi
 fi
 
 # Show files in tree format.
