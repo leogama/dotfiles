@@ -60,6 +60,6 @@ if [ -d "$XDG_CONFIG_HOME/profile" ]; then
     done
 fi
 
-if [ -r "XDG_CONFIG_HOME/local/profile" ]; then
-    . "XDG_CONFIG_HOME/local/profile"
+if [ -r "$XDG_CONFIG_HOME/local/profile" ]; then
+    . "$XDG_CONFIG_HOME/local/profile"
 fi
