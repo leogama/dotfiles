@@ -28,6 +28,9 @@ bindkey '^R' history-incremental-search-backward
 # Globbing behavior.
 setopt csh_null_glob ksh_glob
 
+# Split unquoted variables into words.
+setopt sh_word_split
+
 # Allow comments in interactive mode.
 # NOTE: useful for saving to history without executing.
 setopt interactive_comments
