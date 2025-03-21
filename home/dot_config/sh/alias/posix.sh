@@ -3,7 +3,7 @@
 
 ### Program execution ###
 
-if [ "$OSNAME" = "macOS" ]; then
+if [ "$OSNAME" = 'macOS' ]; then
     alias app='open -a'
 else
     alias app='gtk-launch'
@@ -232,6 +232,14 @@ asm () {
 
 }
 
+# bump version
+bump () {
+    test $# -lt 2 && echo >&2 "usage: bump <new_version> <file>..." && return 2
+    local new_version=$1; shift
+    echo >&2 "info: bumping version in" "$@"
+    sed -E --in-place 's/(Version:\s+)[0-9]+\.[0-9]+\.[0-9]+/\1'"${new_version}/" "$@"
+}
+
 # C compiler
 cc () {
     local filename="${@: -1}"
@@ -307,13 +315,13 @@ activate () {
     elif [ -d .venv ]; then
         local env_dir=./.venv
     else
-        echo "error: can't find virtual environment in ./venv/ or ./.venv/" >&2
+        echo >&2 "error: can't find virtual environment in ./venv/ or ./.venv/"
         return 1
     fi
     if [ -f $env_dir/bin/activate ]; then
         . $env_dir/bin/activate
     else
-        echo "error: activation script not found in $env_dir/" >&2
+        echo >&2 "error: activation script not found in $env_dir/"
         return 1
     fi
 }
@@ -346,7 +354,7 @@ plot () {
 # print localization environment variables
 lang () {
     if [ "$1" = '-s' ]; then
-        test $# = 1 && echo "Usage: lang -s ll[_CC]" >&2 && return 2
+        test $# = 1 && echo >&2 "Usage: lang -s ll[_CC]" && return 2
         locale -a | command grep -E -i "^$2.*utf.?8"; return $?
     fi
     {
@@ -381,7 +389,7 @@ lsgroups () {
         sort
 }
 lslogged () {
-    echo 'User           Procs   Latest                       From'
+    echo "User           Procs   Latest                       From"
     lslogins --user-accs --output USER,PROC,LAST-LOGIN,LAST-HOSTNAME --time-format full |
         sort -k 2n -k 7n -k 4M -k 5n -k 6,7 |  # n processes, year, month, day, time
         awk 'BEGIN { "users" | getline logged }
