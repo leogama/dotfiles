@@ -342,7 +342,10 @@ Plug 'somini/vim-autoclose'
 Plug 'tpope/vim-surround', {'tag': '*'}  " script_id=1697
 
 " Panels
-Plug 'ptzz/lf.vim', {'tag': '*'}
+if executable('lf')
+    Plug 'ptzz/lf.vim', {'tag': '*'}
+    Plug 'voldikss/vim-floaterm'
+endif
 if executable('ctags')
     Plug 'majutsushi/tagbar', {'tag': '*'}  " script_id=3465
     Plug 'chumakd/vim-taglist-plus'  " script_id=273
