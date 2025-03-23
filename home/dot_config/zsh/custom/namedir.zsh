@@ -33,13 +33,13 @@ _namedir-abspath () {
     if [[ $dir[1] == "/" ]]; then
         echo "$dir"
     else
-        echo `pwd`/"$dir"
+        echo "$PWD/$dir"
     fi
 }
 
 namedir-list () {
     local file list
-    file="`_namedir-db`"
+    file="$(_namedir-db)"
 
     if [ -z "$1" ]; then
         if command -v column >/dev/null; then
@@ -77,7 +77,7 @@ namedir () {
 
     dir="$PWD"
     if ! [ -z "$2" ]; then
-        dir="`_namedir-abspath "$2"`"
+        dir="$(_namedir-abspath "$2")"
     fi
 
     eval $1=\"$dir\" ;  : ~$1 
@@ -93,7 +93,7 @@ namedir-remove () {
 
     name="$1"
     name="${name%% *}"
-    file="`_namedir-db`"
+    file="$(_namedir-db)"
 
     if ! [ -e "$file" ]; then
         return 0
@@ -133,9 +133,9 @@ namedir-save () {
     dir="$PWD"
     name="$1"
     name="${name%% *}"
-    file="`_namedir-db`"
+    file="$(_namedir-db)"
     if ! [ -z "$2" ]; then
-        dir="`_namedir-abspath "$2"`"
+        dir="$(_namedir-abspath "$2")"
     fi
 
     namedir-remove "$name"
