@@ -13,8 +13,6 @@ let b:did_user_ftplugin = 1
 iabbrev  <buffer> -- <-
 inoremap <buffer> .. \|>
 inoremap <buffer> ... ...
-"iabbrev  <buffer> = <-
-"inoremap <buffer> == ==
 
 " extra operators
 iabbrev <buffer> >% %>%
@@ -30,13 +28,16 @@ iabbrev <buffer> F FALSE
 
 " vim-R plugin
 let R_args = ['-q', '--no-restore-data']  " the same as in .alias.sh
-let R_nvim_wd = 1
 let R_assign = 0
-let R_rconsole_height = 18
-let R_rconsole_width = -1
-let R_help_w = 88
 let R_debug = 0
-"let RStudio_cmd = '/usr/bin/rstudio'
+let R_nvim_wd = 1
+
+" window sizes
+let R_help_w = 88
+let R_min_editor_width = 80
+let R_rconsole_height = 17
+let R_rconsole_width = &columns - (R_min_editor_width + &number*&numberwidth + 2)
+set winfixwidth
 
 " Don't overwrite my custom mappings (\o and \u).
 let R_disable_cmds = [
