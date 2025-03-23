@@ -158,7 +158,7 @@ xkb_symbols "dvorak" {
     key <AC09> { [            n,               N,                  eng,              ENG ] };
     key <AC10> { [            s,               S,               ssharp,            U1E9E ] };
     key <AC11> { [        minus,      underscore,           0x01002015,       0x01000336 ] };
-    key <BKSL> { [    backslash,             bar,           asciitilde,       dead_tilde ] };
+    key <BKSL> { [          bar,       backslash,           asciitilde,       dead_tilde ] };
 
 // Lower row
     key <LSGT> { [          bar,       backslash,             ccedilla,         Ccedilla ] };
