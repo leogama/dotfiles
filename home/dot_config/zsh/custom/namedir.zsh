@@ -3,6 +3,7 @@
 # From then on, use "cd ~name" to return to that directory.
 
 nd () {
+    emulate -L zsh
     if [[ -n "$1" ]]; then
         local cmd
         cmd="$1"
@@ -19,6 +20,7 @@ nd () {
 }
 
 _namedir-db () {
+    emulate -L zsh
     local db
     db="${XDG_STATE_HOME}/zsh/nameddirs"
     if ! [ -e "$db" ]; then
@@ -28,6 +30,7 @@ _namedir-db () {
 }
 
 _namedir-abspath () {
+    emulate -L zsh
     local dir
     dir="$1"
     if [[ $dir[1] == "/" ]]; then
@@ -38,6 +41,7 @@ _namedir-abspath () {
 }
 
 namedir-list () {
+    emulate -L zsh
     local file list
     file="$(_namedir-db)"
 
@@ -68,6 +72,7 @@ namedir-list () {
 }
 
 namedir () {
+    emulate -L zsh
     local dir
 
     if [ -z "$1" ]; then
@@ -84,6 +89,7 @@ namedir () {
 }
 
 namedir-remove () {
+    emulate -L zsh
     local name file list
 
     if [ -z "$1" ]; then
@@ -109,6 +115,7 @@ namedir-remove () {
 }
 
 namedir-restore () {
+    emulate -L zsh
     local dirs names i unquoted
     dirs=(${(f)"$(namedir-list -d)"})
     names=(${(f)"$(namedir-list -n)"})
@@ -124,6 +131,7 @@ namedir-restore () {
 }
 
 namedir-save () {
+    emulate -L zsh
     if [ -z "$1" ]; then
         echo "Usage: $0 <name> [directory]"
         return 0
