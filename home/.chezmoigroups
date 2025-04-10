@@ -44,6 +44,9 @@
 .config/profile/vim.sh
 .config/sh/alias/vim.sh
 
+}} zim {{
+.local/share/applications/zim.desktop
+
 }} zsh {{
 .config/zsh/**/*
 .config/profile/zsh.sh
