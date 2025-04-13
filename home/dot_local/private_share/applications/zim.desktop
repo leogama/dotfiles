@@ -8,7 +8,7 @@ Terminal=false
 Categories=Utility;TextEditor;GTK;
 MimeType=application/x-zim-notebook;text/x-zim-wiki;
 Keywords=Text;Editor;Write;Wiki;Notes;Notebook;Journal;
-Actions=NotebookCiencia;NotebookHacking;
+Actions=NotebookEstudos;NotebookHacking;
 Name=Zim Desktop Wiki
 Comment=Edit text files "wiki style"
 GenericName=Text Editor
@@ -94,9 +94,9 @@ Comment[zh_TW]=以維基樣式編輯文字檔案
 GenericName[zh_TW]=文字編輯器
 X-Ayatana-Desktop-Shortcuts=X-QuickNote;X-QuickNoteClipboard;
 
-[Desktop Action NotebookCiencia]
-Name=Notebook Ciência
-Exec=zim Dropbox/Zim/Ciência
+[Desktop Action NotebookEstudos]
+Name=Notebook Estudos
+Exec=zim Dropbox/Zim/Estudos
 
 [Desktop Action NotebookHacking]
 Name=Notebook Hacking
