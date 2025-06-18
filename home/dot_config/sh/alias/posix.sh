@@ -310,6 +310,9 @@ pip () {
 
 # virtual environment
 activate () {
+    if [ -n "$1" ]; then
+        cd "$1"
+    fi
     if [ -d venv ]; then
         local env_dir=./venv
     elif [ -d .venv ]; then
