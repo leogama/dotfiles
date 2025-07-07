@@ -1,3 +1,6 @@
+}} apt {{
+.config/sh/alias/apt.sh
+
 }} bash {{
 .bashrc
 
