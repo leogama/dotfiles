@@ -1,1 +1,1 @@
-alias apt-refresh='sudo rm -f /var/lib/apt/lists/* && sudo apt update'
+alias apt-refresh='sudo rm -fr /var/lib/apt/lists/* && sudo apt update'
