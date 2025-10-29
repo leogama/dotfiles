@@ -43,6 +43,7 @@ let g:did_xdg_setup = 1
 " Appearance
 set t_Co=256                        " force (at least) 256 colors
 sil! set termguicolors              " try to set true colors
+set background=dark                 " the default is light in some systems
 set cursorline                      " highlight the text line of the cursor
 sil! set cursorlineopt=line         " don't highlight line number
 set laststatus=2                    " always show status line
