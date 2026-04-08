@@ -96,7 +96,7 @@ X-Ayatana-Desktop-Shortcuts=X-QuickNote;X-QuickNoteClipboard;
 
 [Desktop Action NotebookEstudos]
 Name=Notebook Estudos
-Exec=zim Dropbox/Zim/Estudos
+Exec=zim Dropbox/Medicina/Estudos
 
 [Desktop Action NotebookHacking]
 Name=Notebook Hacking
