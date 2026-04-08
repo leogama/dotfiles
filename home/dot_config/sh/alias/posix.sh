@@ -111,11 +111,6 @@ if is_command gvfs-trash; then
     alias trash='gio trash'
 fi
 
-# inspect media file with ffmpeg
-alias ffmpeg='ffmpeg -hide_banner'
-alias ffprobe='ffprobe -hide_banner'
-alias ffile=ffprobe
-
 
 ### General utilities ###
 
@@ -135,6 +130,15 @@ else
 fi
 df () {
     _df | { read HEADER; echo "$HEADER"; sort -k6; }
+}
+
+# inspect media file with ffmpeg
+alias ffmpeg='ffmpeg -hide_banner'
+alias ffprobe='ffprobe -hide_banner'
+alias ffile=ffprobe
+
+ff2mp3 () {
+    command ffmpeg -hide_banner -i "$1" -codec:a libmp3lame -qscale:a 2 "$2"
 }
 
 # grep: colors
