@@ -66,7 +66,18 @@ zinit snippet "$ZDOTDIR/custom/namedir.zsh"
 setopt promptsubst
 zinit snippet OMZ::lib/async_prompt.zsh
 zinit snippet OMZ::lib/git.zsh
+zinit snippet OMZ::plugins/command-not-found
 zinit snippet OMZ::themes/agnoster.zsh-theme
+
+build_prompt() {
+    RETVAL=$?
+    prompt_status
+    prompt_virtualenv
+    prompt_context
+    prompt_dir
+    prompt_git
+    prompt_end
+}
 
 
 ### Completion ###
