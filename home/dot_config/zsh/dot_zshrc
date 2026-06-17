@@ -99,4 +99,4 @@ fi
 zstyle ':completion:*:complete:ssh:*:*' tag-order '!users'  # just complete hosts
 
 
-try_source "$ZDOTDIR/.zshrc.local"
+try_source "$XDG_CONFIG_HOME/local/zshrc"
