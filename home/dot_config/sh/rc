@@ -11,6 +11,6 @@ for file in "$XDG_CONFIG_HOME/sh/alias"/*.sh; do
     try_source "$file"
 done
 
-try_source "$XDG_CONFIG_HOME/sh/rc.local"
+try_source "$XDG_CONFIG_HOME/local/rc"
 
 # vi:set ft=sh :
