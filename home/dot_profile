@@ -63,3 +63,8 @@ fi
 if [ -r "$XDG_CONFIG_HOME/local/profile" ]; then
     . "$XDG_CONFIG_HOME/local/profile"
 fi
+
+# If running Bash.
+if [ -n "$BASH_VERSION" -a -f "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc"
+fi
