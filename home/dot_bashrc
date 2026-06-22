@@ -4,7 +4,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-source "$HOME/.local/lib/utils.sh"
+# Load common shell settings.
+source "$XDG_CONFIG_HOME/sh/rc"
 
 
 ### BEHAVIOR ###
@@ -34,8 +35,12 @@ shopt -s histappend
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# Make less more friendly for non-text input files, see lesspipe(1).
-#[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Use color?
+case "$TERM" in
+    xterm-color|*-256color) use_color=yes;;
+esac
+#force_color=yes
 
 # Enable color support of ls and grep
 if [[ -x /usr/bin/dircolors ]]; then
@@ -103,7 +108,4 @@ unset color_prompt force_color_prompt
 #esac
 
 
-# Read local bash settings and aliases.
-try_source "$HOME/.config/bash/bashrc"
-try_source "$HOME/.config/sh/alias.sh"
-try_source "$HOME/.config/bash/alias.sh"
+try_source "$XDG_CONFIG_HOME/local/bashrc"
