@@ -396,6 +396,9 @@ endif
 
 """ PLUGINS OPTIONS """
 let AutoCloseExpandSpace = 0
+let goyo_decoration_elements = ['~']
+let goyo_decoration_density = 0.05  " just a hint of texture
+let goyo_width = 80
 let lsp_settings_enable_suggestions = 0
 let NERDDefaultAlign = 'left'
 let SuperTabCompleteCase = 'match'
