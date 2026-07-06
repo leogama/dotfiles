@@ -13,7 +13,10 @@ export XDG_USER_LIB="$HOME/.local/lib"
 
 # Add user executables to PATH.
 if [ -d "$XDG_USER_BIN" ]; then
-    PATH="$XDG_USER_BIN:$PATH"
+    case ":$PATH:" in
+        *":$XDG_USER_BIN:"*) ;;
+        *) PATH="$XDG_USER_BIN:$PATH" ;;
+    esac
 fi
 
 # Identify operating system.
