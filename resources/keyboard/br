@@ -157,7 +157,7 @@ xkb_symbols "dvorak" {
     key <AC08> { [            t,               T,           rightarrow,        trademark ] };
     key <AC09> { [            n,               N,                  eng,              ENG ] };
     key <AC10> { [            s,               S,               ssharp,            U1E9E ] };
-    key <AC11> { [        minus,      underscore,           0x01002015,       0x01000336 ] };
+    key <AC11> { [        minus,      underscore,           0x01002014,       0x01002013 ] };
     key <BKSL> { [          bar,       backslash,           asciitilde,       dead_tilde ] };
 
 // Lower row
