@@ -219,7 +219,7 @@ xkb_symbols "dvorak" {
     key <AB08> { [            w,               W,               ubreve,           Ubreve ] };
     key <AB09> { [            v,               V,   doublelowquotemark, singlelowquotemark ] };
     key <AB10> { [            z,               Z,           0x0100201F,       0x0100201B ] };
-    key <AB11> { [    ccedilla,         Ccedilla,             currency,        brokenbar ] };
+    key <AB11> { [     ccedilla,        Ccedilla,             currency,        brokenbar ] };
 
     key <SPCE> { [        space,           space,         nobreakspace,     nobreakspace ] };
 
@@ -331,7 +331,7 @@ xkb_symbols "nativo" {
     key <AB10> { [            z,               Z,           0x0100201F,       0x0100201B ] };
     key <AB11> { [    backslash,             bar,             currency,        brokenbar ] };
 
-    key <SPCE> { [        space,           space,         nobreakspace,     nobreakspace ] };
+    key <SPCE> { [        space,           space,         nobreakspace,            U2011 ] };  // non-breaking hyphen
 
 // Configures the "," for the numeric keypad
     include "kpdl(comma)"
